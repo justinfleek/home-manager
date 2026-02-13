@@ -195,6 +195,36 @@ EOF
     log_success "OpenCode configured for workspace!"
 }
 
+# Setup PRISM themes and Cursor
+setup_extras() {
+    log_info "Setting up PRISM themes and Cursor IDE..."
+    
+    # Run prism-setup if available
+    if [ -x "$HOME/.local/bin/prism-setup" ]; then
+        "$HOME/.local/bin/prism-setup" || log_warn "PRISM setup had issues"
+    fi
+    
+    # Run cursor-install if available
+    if [ -x "$HOME/.local/bin/cursor-install" ]; then
+        read -p "Install Cursor IDE? (y/N) " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            "$HOME/.local/bin/cursor-install" || log_warn "Cursor install had issues"
+        fi
+    fi
+    
+    # Run hypermodern-emacs-setup if available
+    if [ -x "$HOME/.local/bin/hypermodern-emacs-setup" ]; then
+        read -p "Setup hypermodern-emacs? (y/N) " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            "$HOME/.local/bin/hypermodern-emacs-setup" || log_warn "Emacs setup had issues"
+        fi
+    fi
+    
+    log_success "Extras configured!"
+}
+
 # Print next steps
 print_next_steps() {
     echo ""
@@ -216,6 +246,9 @@ print_next_steps() {
     echo -e "  ${YELLOW}lg${NC}      - Lazygit"
     echo -e "  ${YELLOW}v${NC}       - Neovim"
     echo -e "  ${YELLOW}oc${NC}      - OpenCode"
+    echo -e "  ${YELLOW}cursor${NC}  - Cursor IDE"
+    echo -e "  ${YELLOW}prism${NC}   - Setup/update PRISM themes"
+    echo -e "  ${YELLOW}themes${NC}  - Switch color themes"
     echo ""
     echo -e "Docs: ${BLUE}$INSTALL_DIR/modules/docs/${NC}"
     echo ""
@@ -258,6 +291,7 @@ main() {
     fi
     
     build_config
+    setup_extras
     print_next_steps
 }
 
