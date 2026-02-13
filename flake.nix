@@ -86,7 +86,7 @@
       };
       
       # Define your username here
-      username = "jpyxal"; # VM user for demo
+      username = "justin"; # Workstation user
       
     in {
       homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
@@ -142,8 +142,8 @@
           # File managers
           ./modules/file-managers.nix
           
-          # Research & academic
-          ./modules/research.nix
+          # Research & academic (disabled - bibtool build issues)
+          # ./modules/research.nix
           
           # Sync & backup
           ./modules/sync.nix
