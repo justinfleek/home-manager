@@ -86,7 +86,7 @@
       };
       
       # Define your username here
-      username = "justin"; # CHANGE THIS TO YOUR USERNAME
+      username = "jpyxal"; # VM user for demo
       
     in {
       homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
