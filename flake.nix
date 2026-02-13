@@ -182,6 +182,9 @@
           # Security Hardening (white hat mode)
           ./modules/security.nix
           
+          # Desktop launchers, dock, and icons
+          ./modules/launchers.nix
+          
           # Alternative WMs (optional - uncomment to use)
           # ./modules/sway.nix
           # ./modules/niri.nix

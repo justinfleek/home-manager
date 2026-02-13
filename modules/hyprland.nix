@@ -53,6 +53,9 @@
         
         # Cursor
         "hyprctl setcursor catppuccin-mocha-mauve-cursors 24"
+        
+        # Dock (macOS-style)
+        "nwg-dock-hyprland -d -i 48 -p 'bottom' -mb 10 -ml 10 -mr 10"
       ];
 
       # ========================================================================
