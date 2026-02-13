@@ -1,4 +1,10 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 {
   # ============================================================================
@@ -12,35 +18,35 @@
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
-    
+
     # Extra packages available to neovim
     extraPackages = with pkgs; [
       # Core utils
       ripgrep
       fd
       fzf
-      
+
       # Language servers
-      nil                                    # Nix
-      nixfmt-rfc-style                       # Nix formatter
-      lua-language-server                    # Lua
-      stylua                                 # Lua formatter
+      nil # Nix
+      nixfmt # Nix formatter (was nixfmt-rfc-style)
+      lua-language-server # Lua
+      stylua # Lua formatter
       nodePackages.typescript-language-server # TS/JS
-      nodePackages.prettier                  # JS/TS formatter
-      nodePackages.eslint                    # JS/TS linter
-      vscode-langservers-extracted           # HTML/CSS/JSON
-      marksman                               # Markdown
-      taplo                                  # TOML
-      yaml-language-server                   # YAML
-      bash-language-server                   # Bash
-      pyright                                # Python
-      ruff                                   # Python linter/formatter
-      gopls                                  # Go
-      rust-analyzer                          # Rust
-      
+      nodePackages.prettier # JS/TS formatter
+      # nodePackages.eslint                  # Conflicts - use npx eslint or biome
+      vscode-langservers-extracted # HTML/CSS/JSON
+      marksman # Markdown
+      taplo # TOML
+      yaml-language-server # YAML
+      bash-language-server # Bash
+      pyright # Python
+      ruff # Python linter/formatter
+      gopls # Go
+      rust-analyzer # Rust
+
       # Misc tools
       tree-sitter
-      gcc                                    # For treesitter compilation
+      gcc # For treesitter compilation
       gnumake
     ];
   };
@@ -427,93 +433,93 @@
     '';
 
     "nvim/lua/plugins/ui.lua".text = ''
-      return {
-        -- Dashboard
-        {
-          "nvimdev/dashboard-nvim",
-          opts = function(_, opts)
-            local logo = [[
-     ██████╗ ██████╗ ███████╗███╗   ██╗ ██████╗ ██████╗ ██████╗ ███████╗
-    ██╔═══██╗██╔══██╗██╔════╝████╗  ██║██╔════╝██╔═══██╗██╔══██╗██╔════╝
-    ██║   ██║██████╔╝█████╗  ██╔██╗ ██║██║     ██║   ██║██║  ██║█████╗  
-    ██║   ██║██╔═══╝ ██╔══╝  ██║╚██╗██║██║     ██║   ██║██║  ██║██╔══╝  
-    ╚██████╔╝██║     ███████╗██║ ╚████║╚██████╗╚██████╔╝██████╔╝███████╗
-     ╚═════╝ ╚═╝     ╚══════╝╚═╝  ╚═══╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝
-            ]]
-            logo = string.rep("\n", 4) .. logo .. "\n\n"
-            opts.config.header = vim.split(logo, "\n")
-          end,
-        },
-
-        -- Noice (cmdline, notifications, etc)
-        {
-          "folke/noice.nvim",
-          opts = {
-            presets = {
-              bottom_search = true,
-              command_palette = true,
-              long_message_to_split = true,
-            },
+        return {
+          -- Dashboard
+          {
+            "nvimdev/dashboard-nvim",
+            opts = function(_, opts)
+              local logo = [[
+       ██████╗ ██████╗ ███████╗███╗   ██╗ ██████╗ ██████╗ ██████╗ ███████╗
+      ██╔═══██╗██╔══██╗██╔════╝████╗  ██║██╔════╝██╔═══██╗██╔══██╗██╔════╝
+      ██║   ██║██████╔╝█████╗  ██╔██╗ ██║██║     ██║   ██║██║  ██║█████╗  
+      ██║   ██║██╔═══╝ ██╔══╝  ██║╚██╗██║██║     ██║   ██║██║  ██║██╔══╝  
+      ╚██████╔╝██║     ███████╗██║ ╚████║╚██████╗╚██████╔╝██████╔╝███████╗
+       ╚═════╝ ╚═╝     ╚══════╝╚═╝  ╚═══╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝
+              ]]
+              logo = string.rep("\n", 4) .. logo .. "\n\n"
+              opts.config.header = vim.split(logo, "\n")
+            end,
           },
-        },
 
-        -- Bufferline
-        {
-          "akinsho/bufferline.nvim",
-          opts = {
-            options = {
-              mode = "buffers",
-              separator_style = "thin",
-              show_buffer_close_icons = true,
-              show_close_icon = false,
-              diagnostics = "nvim_lsp",
-              always_show_bufferline = true,
-              indicator = {
-                style = "underline",
+          -- Noice (cmdline, notifications, etc)
+          {
+            "folke/noice.nvim",
+            opts = {
+              presets = {
+                bottom_search = true,
+                command_palette = true,
+                long_message_to_split = true,
               },
             },
           },
-        },
 
-        -- Lualine
-        {
-          "nvim-lualine/lualine.nvim",
-          opts = function(_, opts)
-            opts.options = {
-              theme = "catppuccin",
-              globalstatus = true,
-              component_separators = { left = "", right = "" },
-              section_separators = { left = "", right = "" },
-            }
-          end,
-        },
-
-        -- Indent guides
-        {
-          "lukas-reineke/indent-blankline.nvim",
-          opts = {
-            indent = {
-              char = "│",
-              tab_char = "│",
-            },
-            scope = { enabled = true },
-            exclude = {
-              filetypes = {
-                "help",
-                "alpha",
-                "dashboard",
-                "neo-tree",
-                "Trouble",
-                "lazy",
-                "mason",
-                "notify",
-                "toggleterm",
-                "lazyterm",
+          -- Bufferline
+          {
+            "akinsho/bufferline.nvim",
+            opts = {
+              options = {
+                mode = "buffers",
+                separator_style = "thin",
+                show_buffer_close_icons = true,
+                show_close_icon = false,
+                diagnostics = "nvim_lsp",
+                always_show_bufferline = true,
+                indicator = {
+                  style = "underline",
+                },
               },
             },
           },
-        },
-      }
+
+          -- Lualine
+          {
+            "nvim-lualine/lualine.nvim",
+            opts = function(_, opts)
+              opts.options = {
+                theme = "catppuccin",
+                globalstatus = true,
+                component_separators = { left = "", right = "" },
+                section_separators = { left = "", right = "" },
+              }
+            end,
+          },
+
+          -- Indent guides
+          {
+            "lukas-reineke/indent-blankline.nvim",
+            opts = {
+              indent = {
+                char = "│",
+                tab_char = "│",
+              },
+              scope = { enabled = true },
+              exclude = {
+                filetypes = {
+                  "help",
+                  "alpha",
+                  "dashboard",
+                  "neo-tree",
+                  "Trouble",
+                  "lazy",
+                  "mason",
+                  "notify",
+                  "toggleterm",
+                  "lazyterm",
+                },
+              },
+            },
+          },
+        }
     '';
 
     "nvim/lua/plugins/coding.lua".text = ''

@@ -15,7 +15,7 @@
     zotero               # Citation manager
     
     # Note-taking
-    logseq               # Knowledge graph
+    # logseq               # Knowledge graph
     
     # Writing
     typst                # Modern LaTeX alternative
@@ -26,7 +26,7 @@
     calibre              # E-book management
     
     # Research tools
-    bibtool              # BibTeX tool
+    # Xbibtool              # BibTeX tool
     biber                # BibLaTeX backend
   ];
 

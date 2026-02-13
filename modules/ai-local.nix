@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # ============================================================================
@@ -8,51 +13,53 @@
   home.packages = with pkgs; [
     # Ollama - Local LLM runtime
     ollama
-    
+
     # Python for AI/ML
-    (python312.withPackages (ps: with ps; [
-      # Core ML
-      torch
-      torchvision
-      torchaudio
-      
-      # Transformers & LLMs
-      transformers
-      accelerate
-      bitsandbytes
-      sentencepiece
-      tokenizers
-      safetensors
-      
-      # Image generation
-      diffusers
-      
-      # Utilities
-      numpy
-      pillow
-      requests
-      tqdm
-      pyyaml
-      
-      # Jupyter
-      jupyterlab
-      ipywidgets
-      
-      # API clients
-      openai
-      anthropic
-      
-      # Local inference
-      llama-cpp-python
-    ]))
-    
-    # CUDA support
-    cudaPackages.cudatoolkit
-    cudaPackages.cudnn
-    
+    (python312.withPackages (
+      ps: with ps; [
+        # Core ML
+        torch
+        torchvision
+        torchaudio
+
+        # Transformers & LLMs
+        transformers
+        accelerate
+        bitsandbytes
+        sentencepiece
+        tokenizers
+        safetensors
+
+        # Image generation
+        diffusers
+
+        # Utilities
+        numpy
+        pillow
+        requests
+        tqdm
+        pyyaml
+
+        # Jupyter
+        jupyterlab
+        ipywidgets
+
+        # API clients
+        openai
+        anthropic
+
+        # Local inference
+        llama-cpp-python
+      ]
+    ))
+
+    # CUDA support - provided by nvidia.nix
+    # cudaPackages.cudatoolkit
+    # cudaPackages.cudnn
+
     # Other tools
-    git-lfs              # For downloading models
-    aria2                # Fast downloads
+    git-lfs # For downloading models
+    aria2 # Fast downloads
   ];
 
   # ============================================================================
@@ -71,40 +78,40 @@
     text = ''
       #!/usr/bin/env bash
       # Setup Ollama with popular models
-      
+
       set -euo pipefail
-      
+
       echo "=== Ollama Model Setup ==="
       echo ""
-      
+
       # Start ollama if not running
       if ! pgrep -x ollama > /dev/null; then
         echo "Starting Ollama server..."
         ollama serve &
         sleep 3
       fi
-      
+
       echo "Downloading recommended models..."
       echo ""
-      
+
       # Code-focused models
       echo "→ Pulling codellama:7b (code generation)..."
       ollama pull codellama:7b
-      
+
       echo "→ Pulling deepseek-coder:6.7b (code generation)..."
       ollama pull deepseek-coder:6.7b
-      
+
       # General chat
       echo "→ Pulling llama3.2:latest (general)..."
       ollama pull llama3.2:latest
-      
+
       echo "→ Pulling mistral:latest (general)..."
       ollama pull mistral:latest
-      
+
       # Smaller/faster
       echo "→ Pulling phi3:mini (fast, small)..."
       ollama pull phi3:mini
-      
+
       echo ""
       echo "=== Setup Complete ==="
       echo ""
@@ -123,19 +130,19 @@
     text = ''
       #!/usr/bin/env bash
       # Quick chat with local LLM
-      
+
       MODEL="''${1:-llama3.2}"
-      
+
       # Start ollama if not running
       if ! curl -s http://localhost:11434/api/tags > /dev/null 2>&1; then
         echo "Starting Ollama server..."
         ollama serve &
         sleep 3
       fi
-      
+
       echo "Chatting with $MODEL (Ctrl+D to exit)"
       echo ""
-      
+
       ollama run "$MODEL"
     '';
   };
@@ -145,20 +152,20 @@
     text = ''
       #!/usr/bin/env bash
       # Code generation with local LLM
-      
+
       MODEL="''${1:-codellama:7b}"
-      
+
       # Start ollama if not running
       if ! curl -s http://localhost:11434/api/tags > /dev/null 2>&1; then
         echo "Starting Ollama server..."
         ollama serve &
         sleep 3
       fi
-      
+
       echo "Code assistant with $MODEL (Ctrl+D to exit)"
       echo "Tip: Paste code and ask questions about it"
       echo ""
-      
+
       ollama run "$MODEL"
     '';
   };
@@ -172,25 +179,25 @@
     text = ''
       #!/usr/bin/env bash
       # Start Open WebUI for Ollama
-      
+
       set -euo pipefail
-      
+
       CONTAINER_NAME="open-webui"
       DATA_DIR="$HOME/.local/share/open-webui"
-      
+
       mkdir -p "$DATA_DIR"
-      
+
       # Check if already running
       if docker ps --format '{{.Names}}' | grep -q "^$CONTAINER_NAME$"; then
         echo "Open WebUI already running at http://localhost:3000"
         exit 0
       fi
-      
+
       # Remove old container if exists
       docker rm -f "$CONTAINER_NAME" 2>/dev/null || true
-      
+
       echo "Starting Open WebUI..."
-      
+
       docker run -d \
         --name "$CONTAINER_NAME" \
         --restart unless-stopped \
@@ -199,7 +206,7 @@
         -v "$DATA_DIR:/app/backend/data" \
         --add-host=host.docker.internal:host-gateway \
         ghcr.io/open-webui/open-webui:main
-      
+
       echo ""
       echo "Open WebUI started!"
       echo "Access at: http://localhost:3000"
@@ -225,42 +232,42 @@
     text = ''
       #!/usr/bin/env bash
       # Install ComfyUI for Stable Diffusion
-      
+
       set -euo pipefail
-      
+
       COMFY_DIR="$HOME/.local/share/comfyui"
-      
+
       echo "=== ComfyUI Installation ==="
       echo ""
-      
+
       if [ -d "$COMFY_DIR" ]; then
         echo "ComfyUI already installed at $COMFY_DIR"
         echo "To update, run: cd $COMFY_DIR && git pull"
         exit 0
       fi
-      
+
       echo "Installing ComfyUI..."
-      
+
       # Clone ComfyUI
       git clone https://github.com/comfyanonymous/ComfyUI.git "$COMFY_DIR"
       cd "$COMFY_DIR"
-      
+
       # Create venv
       python -m venv venv
       source venv/bin/activate
-      
+
       # Install requirements
       pip install --upgrade pip
       pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
       pip install -r requirements.txt
-      
+
       # Create model directories
       mkdir -p models/checkpoints
       mkdir -p models/vae
       mkdir -p models/loras
       mkdir -p models/controlnet
       mkdir -p models/upscale_models
-      
+
       echo ""
       echo "=== Installation Complete ==="
       echo ""
@@ -279,21 +286,21 @@
     text = ''
       #!/usr/bin/env bash
       # Start ComfyUI
-      
+
       COMFY_DIR="$HOME/.local/share/comfyui"
-      
+
       if [ ! -d "$COMFY_DIR" ]; then
         echo "ComfyUI not installed. Run: comfyui-install"
         exit 1
       fi
-      
+
       cd "$COMFY_DIR"
       source venv/bin/activate
-      
+
       echo "Starting ComfyUI..."
       echo "Access at: http://localhost:8188"
       echo ""
-      
+
       python main.py --listen 0.0.0.0 --port 8188
     '';
   };
@@ -307,14 +314,14 @@
     text = ''
       #!/usr/bin/env bash
       # Start Jupyter Lab for AI experiments
-      
+
       NOTEBOOK_DIR="''${1:-$HOME/notebooks}"
       mkdir -p "$NOTEBOOK_DIR"
-      
+
       echo "Starting Jupyter Lab..."
       echo "Notebook directory: $NOTEBOOK_DIR"
       echo ""
-      
+
       cd "$NOTEBOOK_DIR"
       jupyter lab --no-browser --ip=0.0.0.0 --port=8888
     '';
@@ -328,15 +335,15 @@
   home.file.".local/share/ollama/Modelfile.template".text = ''
     # Custom Ollama Model Template
     # Usage: ollama create mymodel -f Modelfile
-    
+
     FROM llama3.2
-    
+
     # Set parameters
     PARAMETER temperature 0.7
     PARAMETER top_p 0.9
     PARAMETER top_k 40
     PARAMETER num_ctx 4096
-    
+
     # System prompt
     SYSTEM """
     You are a helpful AI assistant. You are knowledgeable, concise, and friendly.
@@ -348,14 +355,14 @@
   home.file.".local/share/ollama/Modelfile.coder".text = ''
     # Coding Assistant Model
     FROM codellama:7b
-    
+
     PARAMETER temperature 0.2
     PARAMETER top_p 0.95
     PARAMETER num_ctx 8192
-    
+
     SYSTEM """
     You are an expert software engineer and coding assistant.
-    
+
     Guidelines:
     - Write clean, maintainable, and well-documented code
     - Follow language-specific best practices and idioms
@@ -363,7 +370,7 @@
     - Consider edge cases and error handling
     - Suggest improvements when you see them
     - Be concise but thorough
-    
+
     When providing code:
     - Use appropriate formatting and syntax highlighting
     - Include relevant imports and dependencies
@@ -382,19 +389,19 @@
     olllist = "ollama list";
     ollpull = "ollama pull";
     ollserve = "ollama serve";
-    
+
     # Quick chat
     chat = "ai-chat";
     code-ai = "ai-code";
-    
+
     # Open WebUI
     webui = "openwebui-start";
     webui-stop = "openwebui-stop";
-    
+
     # ComfyUI (alias defined in comfyui.nix)
     comfy-basic = "comfyui-start";
     comfy-install = "comfyui-install";
-    
+
     # Jupyter
     notebook = "ai-notebook";
     jlab = "jupyter lab";

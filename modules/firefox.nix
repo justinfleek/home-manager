@@ -1,4 +1,10 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 {
   # ============================================================================
@@ -7,74 +13,102 @@
 
   programs.firefox = {
     enable = true;
-    
+
     profiles.default = {
       id = 0;
       name = "default";
       isDefault = true;
-      
+
       # Required for catppuccin extensions
       extensions.force = true;
-      
-      # Search engines
+
+      # Search engines (use lowercase IDs: ddg, google, bing, youtube)
       search = {
         force = true;
-        default = "DuckDuckGo";
+        default = "ddg";
         engines = {
           "Nix Packages" = {
-            urls = [{
-              template = "https://search.nixos.org/packages";
-              params = [
-                { name = "type"; value = "packages"; }
-                { name = "query"; value = "{searchTerms}"; }
-              ];
-            }];
+            urls = [
+              {
+                template = "https://search.nixos.org/packages";
+                params = [
+                  {
+                    name = "type";
+                    value = "packages";
+                  }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
             icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
             definedAliases = [ "@np" ];
           };
           "NixOS Options" = {
-            urls = [{
-              template = "https://search.nixos.org/options";
-              params = [
-                { name = "query"; value = "{searchTerms}"; }
-              ];
-            }];
+            urls = [
+              {
+                template = "https://search.nixos.org/options";
+                params = [
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
             icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
             definedAliases = [ "@no" ];
           };
           "Home Manager Options" = {
-            urls = [{
-              template = "https://home-manager-options.extranix.com/";
-              params = [
-                { name = "query"; value = "{searchTerms}"; }
-              ];
-            }];
+            urls = [
+              {
+                template = "https://home-manager-options.extranix.com/";
+                params = [
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
             definedAliases = [ "@hm" ];
           };
           "GitHub" = {
-            urls = [{
-              template = "https://github.com/search";
-              params = [
-                { name = "q"; value = "{searchTerms}"; }
-              ];
-            }];
+            urls = [
+              {
+                template = "https://github.com/search";
+                params = [
+                  {
+                    name = "q";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
             definedAliases = [ "@gh" ];
           };
-          "YouTube" = {
-            urls = [{
-              template = "https://www.youtube.com/results";
-              params = [
-                { name = "search_query"; value = "{searchTerms}"; }
-              ];
-            }];
+          "youtube" = {
+            urls = [
+              {
+                template = "https://www.youtube.com/results";
+                params = [
+                  {
+                    name = "search_query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
             definedAliases = [ "@yt" ];
           };
-          "Bing".metaData.hidden = true;
-          "Google".metaData.alias = "@g";
-          "DuckDuckGo".metaData.alias = "@ddg";
+          "bing".metaData.hidden = true;
+          "google".metaData.alias = "@g";
+          "ddg".metaData.alias = "@ddg";
         };
       };
-      
+
       # User settings
       settings = {
         # === APPEARANCE ===
@@ -83,7 +117,7 @@
         "browser.uidensity" = 1;
         "svg.context-properties.content.enabled" = true;
         "layout.css.has-selector.enabled" = true;
-        
+
         # === PRIVACY ===
         "browser.contentblocking.category" = "strict";
         "privacy.trackingprotection.enabled" = true;
@@ -92,7 +126,7 @@
         "privacy.donottrackheader.enabled" = true;
         "privacy.globalprivacycontrol.enabled" = true;
         "privacy.query_stripping.enabled" = true;
-        
+
         # Disable telemetry
         "datareporting.healthreport.uploadEnabled" = false;
         "datareporting.policy.dataSubmissionEnabled" = false;
@@ -101,48 +135,48 @@
         "toolkit.telemetry.archive.enabled" = false;
         "toolkit.coverage.opt-out" = true;
         "browser.ping-centre.telemetry" = false;
-        
+
         # === SECURITY ===
         "dom.security.https_only_mode" = true;
         "browser.xul.error_pages.expert_bad_cert" = true;
-        
+
         # === BEHAVIOR ===
         "browser.startup.homepage" = "about:home";
         "browser.newtabpage.enabled" = true;
         "browser.newtabpage.activity-stream.showSponsored" = false;
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
         "browser.newtabpage.activity-stream.default.sites" = "";
-        
+
         # Disable pocket
         "extensions.pocket.enabled" = false;
-        
+
         # Smooth scrolling
         "general.smoothScroll" = true;
         "general.smoothScroll.msdPhysics.enabled" = true;
-        
+
         # Hardware acceleration
         "gfx.webrender.all" = true;
         "media.ffmpeg.vaapi.enabled" = true;
         "media.hardware-video-decoding.force-enabled" = true;
-        
+
         # === UI ===
         "browser.tabs.inTitlebar" = 0;
         "browser.tabs.tabmanager.enabled" = false;
         "findbar.highlightAll" = true;
         "browser.urlbar.suggest.searches" = true;
         "browser.urlbar.showSearchSuggestionsFirst" = false;
-        
+
         # Disable annoyances
         "browser.aboutConfig.showWarning" = false;
         "browser.shell.checkDefaultBrowser" = false;
         "browser.translations.automaticallyPopup" = false;
         "browser.urlbar.quicksuggest.enabled" = false;
-        
+
         # DevTools
         "devtools.theme" = "dark";
         "devtools.debugger.ui.editor-wrapping" = true;
       };
-      
+
       # UserChrome CSS for ricing
       userChrome = ''
         /* ==========================================================================
@@ -299,7 +333,7 @@
           }
         }
       '';
-      
+
       # Extensions (if using firefox-addons input)
       # extensions = with inputs.firefox-addons.packages.${pkgs.system}; [
       #   ublock-origin

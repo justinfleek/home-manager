@@ -1,4 +1,10 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 {
   # ============================================================================
@@ -7,43 +13,43 @@
 
   home.packages = with pkgs; [
     # === WALLPAPER ===
-    swww                     # Animated wallpapers
-    mpvpaper                 # Video wallpapers
-    waypaper                 # Wallpaper GUI
-    
+    swww # Animated wallpapers
+    mpvpaper # Video wallpapers
+    waypaper # Wallpaper GUI
+
     # === SCREENSHOTS ===
-    hyprshot                 # Hyprland screenshot
-    satty                    # Screenshot annotation
-    
+    hyprshot # Hyprland screenshot
+    satty # Screenshot annotation
+
     # === SCREEN RECORDING ===
-    wf-recorder              # Wayland screen recorder
-    wl-screenrec             # Fast screen recorder
-    
+    wf-recorder # Wayland screen recorder
+    wl-screenrec # Fast screen recorder
+
     # === UTILITIES ===
-    hyprpicker               # Color picker
-    hyprcursor               # Cursor theming
-    
+    hyprpicker # Color picker
+    hyprcursor # Cursor theming
+
     # === CLIPBOARD ===
-    cliphist                 # Clipboard history
-    wl-clipboard             # Wayland clipboard
-    
+    cliphist # Clipboard history
+    wl-clipboard # Wayland clipboard
+
     # === WIDGETS ===
-    eww                      # Elkowwar widgets (see eww.nix)
-    
+    eww # Elkowwar widgets (see eww.nix)
+
     # === LAUNCHERS ===
-    anyrun                   # Modern launcher
-    walker                   # Application launcher
-    
+    anyrun # Modern launcher
+    walker # Application launcher
+
     # === MISC ===
-    wlr-randr                # Output management
-    wdisplays                # Display config GUI
-    brightnessctl            # Brightness control
-    
+    wlr-randr # Output management
+    wdisplays # Display config GUI
+    brightnessctl # Brightness control
+
     # === EFFECTS ===
-    wlsunset                 # Blue light filter
-    
+    wlsunset # Blue light filter
+
     # === SCREEN SHARING ===
-    xdg-desktop-portal-hyprland
+    # xdg-desktop-portal-hyprland - provided by hyprland module/flake
     # xwaylandvideobridge removed - use pipewire screenshare
   ];
 
@@ -176,7 +182,7 @@
     width = 600
     anchor = "center"
     margin_top = 200
-    
+
     [ui.theme]
     background = "#1e1e2e"
     foreground = "#cdd6f4"
@@ -189,21 +195,21 @@
     [search]
     delay = 0
     force_keyboard_focus = true
-    
+
     [applications]
     enable = true
     show_generic = true
     show_sub_commands = true
-    
+
     [commands]
     enable = true
-    
+
     [websearch]
     enable = true
-    
+
     [calculator]
     enable = true
-    
+
     [clipboard]
     enable = true
     max_entries = 20
@@ -217,22 +223,22 @@
     executable = true;
     text = ''
       #!/usr/bin/env bash
-      
+
       VIDEO="$1"
-      
+
       if [ -z "$VIDEO" ]; then
         echo "Usage: video-wallpaper <video-file>"
         exit 1
       fi
-      
+
       # Kill existing mpvpaper
       pkill -x mpvpaper
-      
+
       # Start mpvpaper on all monitors
       for monitor in $(hyprctl monitors -j | jq -r '.[].name'); do
         mpvpaper -o "no-audio loop" "$monitor" "$VIDEO" &
       done
-      
+
       echo "Video wallpaper set: $VIDEO"
     '';
   };
@@ -245,12 +251,12 @@
     executable = true;
     text = ''
       #!/usr/bin/env bash
-      
+
       OUTPUT_DIR="$HOME/videos/recordings"
       mkdir -p "$OUTPUT_DIR"
       TIMESTAMP=$(date +%Y%m%d-%H%M%S)
       OUTPUT="$OUTPUT_DIR/recording-$TIMESTAMP.mp4"
-      
+
       case "$1" in
         "area")
           GEOMETRY=$(slurp)
@@ -282,10 +288,10 @@
     executable = true;
     text = ''
       #!/usr/bin/env bash
-      
+
       WALLPAPER_DIR="''${1:-$HOME/.local/share/wallpapers}"
       INTERVAL="''${2:-300}"  # 5 minutes default
-      
+
       while true; do
         WALL=$(find "$WALLPAPER_DIR" -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.webp" -o -name "*.gif" \) | shuf -n 1)
         
@@ -306,7 +312,7 @@
   # ============================================================================
 
   # Add these to your Hyprland config or extend hyprland.nix
-  # 
+  #
   # bind = $mod, R, exec, anyrun
   # bind = $mod SHIFT, R, exec, walker
   # bind = $mod, F9, exec, record-screen area
@@ -323,15 +329,15 @@
     wall = "~/.local/bin/wallpaper";
     walls = "wallpaper-slideshow";
     vwall = "video-wallpaper";
-    
+
     # Recording
     record = "record-screen area";
     recordf = "record-screen screen";
     records = "record-screen stop";
-    
+
     # Color
     pick = "hyprpicker -a";
-    
+
     # Screenshot
     shot = "hyprshot -m region";
     shotw = "hyprshot -m window";

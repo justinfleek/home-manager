@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # ============================================================================
@@ -7,7 +12,7 @@
 
   services.syncthing = {
     enable = true;
-    
+
     # Tray icon (if running desktop)
     tray = {
       enable = true;
@@ -16,18 +21,18 @@
   };
 
   home.packages = with pkgs; [
-    syncthing              # P2P sync
-    syncthingtray          # System tray
-    
+    syncthing # P2P sync
+    # syncthingtray - provided by services.syncthing.tray
+
     # Backup tools
-    restic                 # Backup tool
-    borgbackup             # Deduplicating backup
-    rclone                 # Cloud sync
-    
+    restic # Backup tool
+    borgbackup # Deduplicating backup
+    rclone # Cloud sync
+
     # File transfer
-    rsync                  # Classic sync
-    croc                   # Easy file transfer
-    magic-wormhole         # Secure transfer
+    rsync # Classic sync
+    croc # Easy file transfer
+    magic-wormhole # Secure transfer
   ];
 
   # ============================================================================
@@ -81,12 +86,12 @@
     text = ''
       #!/usr/bin/env bash
       # Backup home directory with restic
-      
+
       set -euo pipefail
-      
+
       # Config
       BACKUP_REPO="''${RESTIC_REPOSITORY:-/mnt/backup/restic}"
-      
+
       # Excludes
       EXCLUDES=(
         --exclude=".cache"
@@ -100,23 +105,23 @@
         --exclude=".nix-defexpr"
         --exclude=".nix-profile"
       )
-      
+
       echo "Starting backup to $BACKUP_REPO..."
-      
+
       restic -r "$BACKUP_REPO" backup \
         --verbose \
         "''${EXCLUDES[@]}" \
         "$HOME"
-      
+
       echo "Backup complete!"
-      
+
       # Cleanup old snapshots (keep 7 daily, 4 weekly, 6 monthly)
       restic -r "$BACKUP_REPO" forget \
         --keep-daily 7 \
         --keep-weekly 4 \
         --keep-monthly 6 \
         --prune
-      
+
       echo "Cleanup complete!"
     '';
   };
@@ -126,12 +131,12 @@
     text = ''
       #!/usr/bin/env bash
       # Backup workspace with restic
-      
+
       set -euo pipefail
-      
+
       BACKUP_REPO="''${RESTIC_REPOSITORY:-/mnt/backup/restic-workspace}"
       WORKSPACE="''${HOME}/workspace"
-      
+
       # Excludes
       EXCLUDES=(
         --exclude="node_modules"
@@ -143,14 +148,14 @@
         --exclude="build"
         --exclude=".next"
       )
-      
+
       echo "Backing up workspace..."
-      
+
       restic -r "$BACKUP_REPO" backup \
         --verbose \
         "''${EXCLUDES[@]}" \
         "$WORKSPACE"
-      
+
       echo "Workspace backup complete!"
     '';
   };
@@ -226,16 +231,16 @@
   programs.bash.shellAliases = {
     # Syncthing
     stui = "syncthingtray";
-    
+
     # Rclone
     rcls = "rclone ls";
     rcsync = "rclone sync";
     rccopy = "rclone copy";
-    
+
     # Restic
     backup = "backup-home";
     backup-ws = "backup-workspace";
-    
+
     # Quick transfers
     send = "croc send";
     recv = "croc";

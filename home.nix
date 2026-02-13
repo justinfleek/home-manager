@@ -1,4 +1,12 @@
-{ config, pkgs, lib, inputs, username, nix-colors, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  username,
+  nix-colors,
+  ...
+}:
 
 {
   # ============================================================================
@@ -17,7 +25,7 @@
       VISUAL = "nvim";
       TERMINAL = "ghostty";
       BROWSER = "firefox";
-      
+
       # Wayland specific
       NIXOS_OZONE_WL = "1";
       MOZ_ENABLE_WAYLAND = "1";
@@ -25,11 +33,11 @@
       SDL_VIDEODRIVER = "wayland";
       XDG_SESSION_TYPE = "wayland";
       GDK_BACKEND = "wayland,x11";
-      
+
       # Theming
       GTK_THEME = "catppuccin-mocha-mauve-standard";
       QT_STYLE_OVERRIDE = "kvantum";
-      
+
       # FZF catppuccin colors (use mkForce to override catppuccin module)
       FZF_DEFAULT_OPTS = lib.mkForce ''
         --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8
@@ -52,7 +60,7 @@
   # ============================================================================
   # CATPPUCCIN GLOBAL THEMING
   # ============================================================================
-  
+
   catppuccin = {
     enable = true;
     flavor = "mocha";
@@ -84,26 +92,26 @@
     dust
     duf
     ncdu
-    
+
     # === DEVELOPMENT ===
-    opencode           # The goat
+    # opencode         # Temporarily disabled - requires bun 1.3.9+ (nixpkgs has 1.3.8)
     git
     gh
     lazygit
     delta
     difftastic
-    
+
     # Languages & runtimes
     nodejs_22
     bun
     deno
-    python312
+    # python312  # Provided via nvidia.nix withPackages env
     rustup
     go
-    
+
     # LSPs & formatters
-    nil                # Nix LSP
-    nixfmt-rfc-style
+    nil # Nix LSP
+    nixfmt # Was nixfmt-rfc-style, now just nixfmt
     nodePackages.typescript-language-server
     nodePackages.prettier
     lua-language-server
@@ -111,25 +119,25 @@
     marksman
     taplo
     yaml-language-server
-    
+
     # === CLI TOOLS ===
-    eza                # Better ls
-    bat                # Better cat
-    zoxide             # Smart cd
-    fzf                # Fuzzy finder
-    atuin              # Shell history
-    tldr               # Quick man pages
-    glow               # Markdown viewer
-    silicon            # Code screenshots
-    hyperfine          # Benchmarking
-    tokei              # Code stats
-    
+    eza # Better ls
+    bat # Better cat
+    zoxide # Smart cd
+    fzf # Fuzzy finder
+    atuin # Shell history
+    # tldr # Quick man pages - conflicts with tealdeer in dev.nix
+    glow # Markdown viewer
+    silicon # Code screenshots
+    hyperfine # Benchmarking
+    tokei # Code stats
+
     # === SYSTEM ===
     fastfetch
     cpufetch
     onefetch
     nitch
-    
+
     # === MEDIA ===
     mpv
     imv
@@ -138,13 +146,13 @@
     slurp
     wl-clipboard
     cliphist
-    
+
     # === HYPRLAND ECOSYSTEM ===
     hyprpicker
     hyprshot
     wlsunset
-    swww               # Animated wallpapers
-    
+    swww # Animated wallpapers
+
     # === FONTS ===
     nerd-fonts.jetbrains-mono
     nerd-fonts.fira-code
@@ -153,35 +161,35 @@
     nerd-fonts.geist-mono
     inter
     lexend
-    
+
     # === GTK/QT THEMING ===
     catppuccin-gtk
     catppuccin-kvantum
     catppuccin-cursors
-    papirus-icon-theme
-    
+    # papirus-icon-theme - conflicts with catppuccin-papirus-folders from catppuccin module
+
     # === MISC ===
     obs-studio
     discord
     spotify
     obsidian
-    zathura            # PDF viewer
-    
+    zathura # PDF viewer
+
     # === NETWORKING ===
     wget
     curl
     httpie
     aria2
-    
+
     # === ARCHIVE ===
     zip
     unzip
     p7zip
-    
+
     # === PASSWORDS ===
     pass
     gnupg
-    pinentry-curses
+    # pinentry-curses # conflicts with pinentry-gnome3 in security.nix
   ];
 
   # ============================================================================
@@ -283,7 +291,7 @@
   services = {
     # Clipboard manager
     cliphist.enable = true;
-    
+
     # Blue light filter
     wlsunset = {
       enable = true;
@@ -294,13 +302,13 @@
         night = 4000;
       };
     };
-    
+
     # Network tray
     network-manager-applet.enable = true;
-    
+
     # Bluetooth tray
     blueman-applet.enable = true;
-    
+
     # GPG agent - configured in security.nix
   };
 
@@ -310,7 +318,7 @@
 
   programs = {
     home-manager.enable = true;
-    
+
     # Bat (better cat)
     bat = {
       enable = true;
@@ -320,26 +328,26 @@
         italic-text = "always";
       };
     };
-    
+
     # Eza (better ls)
     eza = {
       enable = true;
       enableBashIntegration = true;
-      icons = true;
+      icons = "auto"; # Changed from boolean to string
       git = true;
       extraOptions = [
         "--group-directories-first"
         "--header"
       ];
     };
-    
+
     # Zoxide (smart cd)
     zoxide = {
       enable = true;
       enableBashIntegration = true;
       options = [ "--cmd cd" ];
     };
-    
+
     # FZF
     fzf = {
       enable = true;
@@ -348,7 +356,7 @@
       fileWidgetCommand = "fd --type f --hidden --follow --exclude .git";
       changeDirWidgetCommand = "fd --type d --hidden --follow --exclude .git";
     };
-    
+
     # Btop (theme handled by catppuccin module)
     btop = {
       enable = true;
@@ -361,9 +369,9 @@
         shown_boxes = "cpu mem net proc";
       };
     };
-    
+
     # Zathura PDF viewer - configured in research.nix
-    
+
     # MPV
     mpv = {
       enable = true;
@@ -372,14 +380,14 @@
         vo = "gpu-next";
         hwdec = "auto-safe";
         gpu-context = "wayland";
-        
+
         # UI
         osc = "no";
         border = "no";
         osd-bar = "no";
         osd-font = "Inter";
         osd-font-size = 30;
-        
+
         # Subtitles
         sub-auto = "fuzzy";
         sub-font = "Inter";
@@ -389,11 +397,11 @@
         sub-border-size = 2;
         sub-shadow-offset = 1;
         sub-shadow-color = "#33000000";
-        
+
         # Audio
         volume = 100;
         volume-max = 200;
-        
+
         # Screenshots
         screenshot-format = "png";
         screenshot-high-bit-depth = "yes";
@@ -401,14 +409,17 @@
         screenshot-directory = "~/pictures/screenshots";
       };
     };
-    
+
     # Lazygit
     lazygit = {
       enable = true;
       settings = {
         gui = {
           theme = {
-            activeBorderColor = [ "#cba6f7" "bold" ];
+            activeBorderColor = [
+              "#cba6f7"
+              "bold"
+            ];
             inactiveBorderColor = [ "#a6adc8" ];
             optionsTextColor = [ "#89b4fa" ];
             selectedLineBgColor = [ "#313244" ];
@@ -431,7 +442,7 @@
         };
       };
     };
-    
+
     # Direnv
     direnv = {
       enable = true;
@@ -451,16 +462,16 @@
     executable = true;
     text = ''
       #!/usr/bin/env bash
-      
+
       WALLPAPER_DIR="$HOME/.local/share/wallpapers"
-      
+
       if [ -z "$1" ]; then
         # Random wallpaper
         WALL=$(find "$WALLPAPER_DIR" -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.webp" \) | shuf -n 1)
       else
         WALL="$1"
       fi
-      
+
       if [ -n "$WALL" ] && [ -f "$WALL" ]; then
         swww img "$WALL" \
           --transition-type grow \
@@ -476,10 +487,10 @@
     executable = true;
     text = ''
       #!/usr/bin/env bash
-      
+
       DIR="$HOME/pictures/screenshots"
       mkdir -p "$DIR"
-      
+
       case "$1" in
         "area")
           grim -g "$(slurp)" - | swappy -f -
@@ -502,7 +513,7 @@
     executable = true;
     text = ''
       #!/usr/bin/env bash
-      
+
       COLOR=$(hyprpicker -a)
       notify-send "Color Picked" "$COLOR copied to clipboard" -i color-select
     '';
@@ -513,11 +524,11 @@
     executable = true;
     text = ''
       #!/usr/bin/env bash
-      
+
       OPTIONS="Lock\nLogout\nSuspend\nReboot\nShutdown"
-      
+
       CHOICE=$(echo -e "$OPTIONS" | rofi -dmenu -i -p "Power" -theme-str 'window {width: 200px;}')
-      
+
       case "$CHOICE" in
         "Lock") hyprlock ;;
         "Logout") hyprctl dispatch exit ;;

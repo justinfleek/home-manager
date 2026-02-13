@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # ============================================================================
@@ -16,18 +21,18 @@
     gtk4
     libadwaita
     sassc
-    
+
     # Optional dependencies
     networkmanagerapplet
     blueman
     brightnessctl
     playerctl
-    
-    # Python for some widgets
-    (python312.withPackages (ps: with ps; [
-      requests
-      pillow
-    ]))
+
+    # Python for some widgets - use nvidia.nix python env
+    # (python312.withPackages (ps: with ps; [
+    #   requests
+    #   pillow
+    # ]))
   ];
 
   # ============================================================================
@@ -39,14 +44,14 @@
     text = ''
       #!/usr/bin/env bash
       # Install HyprPanel
-      
+
       set -euo pipefail
-      
+
       HYPRPANEL_DIR="$HOME/.local/share/hyprpanel"
-      
+
       echo "=== Installing HyprPanel ==="
       echo ""
-      
+
       if [ -d "$HYPRPANEL_DIR" ]; then
         echo "Updating existing installation..."
         cd "$HYPRPANEL_DIR"
@@ -56,19 +61,19 @@
         git clone https://github.com/Jas-SinghFSU/HyprPanel.git "$HYPRPANEL_DIR"
         cd "$HYPRPANEL_DIR"
       fi
-      
+
       # Install dependencies via npm
       echo "Installing dependencies..."
       npm install
-      
+
       # Build
       echo "Building..."
       npm run build
-      
+
       # Create symlink
       mkdir -p "$HOME/.local/bin"
       ln -sf "$HYPRPANEL_DIR/hyprpanel" "$HOME/.local/bin/hyprpanel"
-      
+
       echo ""
       echo "=== Installation Complete ==="
       echo ""
@@ -101,20 +106,20 @@
         success = "#a6e3a1";
       };
     };
-    
+
     bar = {
       position = "top";
       height = 40;
-      
+
       left = [
         "workspaces"
         "windowTitle"
       ];
-      
+
       center = [
         "clock"
       ];
-      
+
       right = [
         "media"
         "systray"
@@ -126,7 +131,7 @@
         "power"
       ];
     };
-    
+
     modules = {
       workspaces = {
         count = 10;
@@ -149,14 +154,14 @@
           };
         };
       };
-      
+
       clock = {
         format = "%H:%M";
         formatAlt = "%A, %B %d";
         tooltip = true;
         calendar = true;
       };
-      
+
       battery = {
         showPercentage = true;
         lowThreshold = 20;
@@ -170,7 +175,7 @@
           critical = "󰂃";
         };
       };
-      
+
       volume = {
         showPercentage = true;
         icons = {
@@ -180,7 +185,7 @@
           muted = "󰝟";
         };
       };
-      
+
       network = {
         icons = {
           wifi = "󰤨";
@@ -188,14 +193,14 @@
           disconnected = "󰤭";
         };
       };
-      
+
       bluetooth = {
         icons = {
           connected = "󰂯";
           disconnected = "󰂲";
         };
       };
-      
+
       media = {
         showTitle = true;
         truncateLength = 30;
@@ -204,31 +209,47 @@
           paused = "󰏤";
         };
       };
-      
+
       notifications = {
         icons = {
           bell = "󰂚";
           dnd = "󰂛";
         };
       };
-      
+
       power = {
         icon = "󰐥";
         menu = [
-          { label = "Lock"; icon = "󰌾"; action = "swaylock"; }
-          { label = "Suspend"; icon = "󰤄"; action = "systemctl suspend"; }
-          { label = "Restart"; icon = "󰜉"; action = "systemctl reboot"; }
-          { label = "Shutdown"; icon = "󰐥"; action = "systemctl poweroff"; }
+          {
+            label = "Lock";
+            icon = "󰌾";
+            action = "swaylock";
+          }
+          {
+            label = "Suspend";
+            icon = "󰤄";
+            action = "systemctl suspend";
+          }
+          {
+            label = "Restart";
+            icon = "󰜉";
+            action = "systemctl reboot";
+          }
+          {
+            label = "Shutdown";
+            icon = "󰐥";
+            action = "systemctl poweroff";
+          }
         ];
       };
     };
-    
+
     animations = {
       enable = true;
       duration = 200;
       curve = "ease-out";
     };
-    
+
     blur = {
       enable = true;
       size = 10;
@@ -243,7 +264,7 @@
   # This creates a Waybar config that mimics HyprPanel aesthetics
   xdg.configFile."waybar/hyprpanel-style.css".text = ''
     /* HyprPanel-inspired Waybar Style */
-    
+
     @define-color base #1e1e2e;
     @define-color surface0 #313244;
     @define-color surface1 #45475a;
@@ -254,17 +275,17 @@
     @define-color yellow #f9e2af;
     @define-color red #f38ba8;
     @define-color pink #f5c2e7;
-    
+
     * {
       font-family: "JetBrainsMono Nerd Font", "Material Design Icons";
       font-size: 13px;
       font-weight: 500;
     }
-    
+
     window#waybar {
       background: transparent;
     }
-    
+
     .modules-left,
     .modules-center,
     .modules-right {
@@ -274,12 +295,12 @@
       padding: 4px 16px;
       border: 1px solid alpha(@blue, 0.2);
     }
-    
+
     /* Workspaces - pill style */
     #workspaces {
       padding: 0 4px;
     }
-    
+
     #workspaces button {
       padding: 0;
       margin: 4px 2px;
@@ -289,27 +310,27 @@
       background: alpha(@surface1, 0.5);
       transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
     }
-    
+
     #workspaces button.active {
       min-width: 24px;
       border-radius: 12px;
       background: @blue;
     }
-    
+
     #workspaces button.occupied {
       background: alpha(@blue, 0.3);
     }
-    
+
     #workspaces button label {
       font-size: 0;
     }
-    
+
     /* Clock */
     #clock {
       color: @text;
       font-weight: 600;
     }
-    
+
     /* Modules */
     #battery,
     #network,
@@ -322,41 +343,41 @@
       margin: 0 2px;
       color: @text;
     }
-    
+
     #battery.charging {
       color: @green;
     }
-    
+
     #battery.warning:not(.charging) {
       color: @yellow;
     }
-    
+
     #battery.critical:not(.charging) {
       color: @red;
       animation: blink 1s infinite;
     }
-    
+
     #network.disconnected {
       color: @subtext;
     }
-    
+
     #bluetooth.off {
       color: @subtext;
     }
-    
+
     #pulseaudio.muted {
       color: @subtext;
     }
-    
+
     #custom-power {
       color: @red;
       padding-right: 8px;
     }
-    
+
     @keyframes blink {
       50% { opacity: 0.5; }
     }
-    
+
     /* Hover effects */
     #battery:hover,
     #network:hover,
@@ -366,12 +387,12 @@
       background: alpha(@text, 0.1);
       border-radius: 8px;
     }
-    
+
     /* Tray */
     #tray > .passive {
       -gtk-icon-effect: dim;
     }
-    
+
     #tray > .needs-attention {
       -gtk-icon-effect: highlight;
     }

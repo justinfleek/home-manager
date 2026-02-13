@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # ============================================================================
@@ -18,42 +23,44 @@
 
   home.packages = with pkgs; [
     # Python for ComfyUI
-    (python312.withPackages (ps: with ps; [
-      # Core
-      torch
-      torchvision
-      torchaudio
-      
-      # Diffusion
-      diffusers
-      transformers
-      accelerate
-      safetensors
-      
-      # Image processing
-      pillow
-      opencv4
-      
-      # ComfyUI deps
-      aiohttp
-      einops
-      kornia
-      
-      # Additional ML
-      scipy
-      scikit-image
-      
-      # Utils
-      tqdm
-      pyyaml
-      requests
-    ]))
-    
+    (python312.withPackages (
+      ps: with ps; [
+        # Core
+        torch
+        torchvision
+        torchaudio
+
+        # Diffusion
+        diffusers
+        transformers
+        accelerate
+        safetensors
+
+        # Image processing
+        pillow
+        opencv4
+
+        # ComfyUI deps
+        aiohttp
+        einops
+        kornia
+
+        # Additional ML
+        scipy
+        scikit-image
+
+        # Utils
+        tqdm
+        pyyaml
+        requests
+      ]
+    ))
+
     # System deps
     git
     git-lfs
     aria2
-    ffmpeg
+    # ffmpeg  # Provided by nvidia.nix (ffmpeg-full with NVENC)
   ];
 
   # ============================================================================
@@ -64,7 +71,7 @@
   home.file.".config/comfyui/custom-nodes.txt".text = ''
     # ComfyUI Custom Nodes - j-pyxal collection
     # These are the custom nodes from the fxy infrastructure
-    
+
     # === CORE NODES (from nixified-ai) ===
     comfyui-manager
     comfyui-impact-pack
@@ -78,14 +85,14 @@
     comfyui-rgthree
     comfyui-was-node-suite
     comfyui-layer-style
-    
+
     # === VIDEO/ANIMATION ===
     ComfyUI-WanVideoWrapper
     ComfyUI-WanAnimatePreprocess
     steerable-motion
     ComfyUI-GIMM-VFI
     wan22fmlf
-    
+
     # === IMAGE PROCESSING ===
     ComfyUI-Florence2
     ComfyUI-DepthAnythingV2
@@ -96,16 +103,16 @@
     ComfyUI-SeedVR2_VideoUpscaler
     comfyui_ultimatesdupscale
     ComfyUI-TiledDiffusion
-    
+
     # === PERFORMANCE ===
     ComfyUI-GGUF
     ComfyUI_bitsandbytes_NF4
     ComfyUI_TensorRT
-    
+
     # === AUDIO ===
     ComfyUI-MMAudio
     audio-separation-nodes-comfyui
-    
+
     # === UTILITIES ===
     ComfyUI-Crystools
     ComfyUI-Detail-Daemon
@@ -123,7 +130,7 @@
     comfyui-openpose-editor
     comfyui-styles_csv_loader
     controlaltai-nodes
-    
+
     # === MODEL MANAGEMENT ===
     model_downloader
     x-flux-comfyui
@@ -143,15 +150,15 @@
       #!/usr/bin/env bash
       # Setup ComfyUI using nixified-ai flake
       # This provides Nix-native GPU support and reproducible builds
-      
+
       set -euo pipefail
-      
+
       COMFY_DIR="$HOME/.local/share/comfyui-nix"
       FXY_DIR="$HOME/src/fxy"
-      
+
       echo "=== ComfyUI Nix Setup ==="
       echo ""
-      
+
       # Check if fxy repo exists (has the full nixified-ai setup)
       if [ -d "$FXY_DIR" ]; then
         echo "Found fxy infrastructure at $FXY_DIR"
@@ -171,13 +178,13 @@
           exit 0
         fi
       fi
-      
+
       # Alternative: use standalone comfyui-nix
       echo "Setting up standalone ComfyUI with nixified-ai..."
-      
+
       mkdir -p "$COMFY_DIR"
       cd "$COMFY_DIR"
-      
+
       # Create flake.nix
       cat > flake.nix << 'FLAKE'
       {
@@ -230,7 +237,7 @@
           };
       }
       FLAKE
-      
+
       echo ""
       echo "Created flake at $COMFY_DIR/flake.nix"
       echo ""
@@ -252,17 +259,17 @@
     text = ''
       #!/usr/bin/env bash
       # Run ComfyUI from fxy infrastructure
-      
+
       FXY_DIR="$HOME/src/fxy"
-      
+
       if [ ! -d "$FXY_DIR/ComfyUI" ]; then
         echo "fxy ComfyUI not found at $FXY_DIR/ComfyUI"
         echo "Run: comfyui-nix-setup"
         exit 1
       fi
-      
+
       cd "$FXY_DIR"
-      
+
       # Enter nix environment and run
       nix develop --command python ComfyUI/main.py \
         --listen 0.0.0.0 \
@@ -276,23 +283,23 @@
     text = ''
       #!/usr/bin/env bash
       # Sync custom nodes from nix store to config dir
-      
+
       NODES_DIR="$HOME/.config/comfy-ui/custom_nodes"
-      
+
       echo "=== Custom Nodes Sync ==="
       echo ""
       echo "Current nodes in $NODES_DIR:"
       ls -la "$NODES_DIR" | grep -E "^[ld]" | awk '{print $NF}'
       echo ""
-      
+
       # Count symlinks vs directories
       SYMLINKS=$(find "$NODES_DIR" -maxdepth 1 -type l | wc -l)
       DIRS=$(find "$NODES_DIR" -maxdepth 1 -type d | wc -l)
-      
+
       echo "Nix-managed (symlinks): $SYMLINKS"
       echo "Local (directories): $((DIRS - 1))"
       echo ""
-      
+
       # Show broken symlinks
       BROKEN=$(find "$NODES_DIR" -maxdepth 1 -type l ! -exec test -e {} \; -print | wc -l)
       if [ "$BROKEN" -gt 0 ]; then
@@ -308,12 +315,12 @@
     text = ''
       #!/usr/bin/env bash
       # Download common ComfyUI models
-      
+
       MODELS_DIR="$HOME/.config/comfy-ui/models"
-      
+
       echo "=== ComfyUI Model Downloader ==="
       echo ""
-      
+
       mkdir -p "$MODELS_DIR/checkpoints"
       mkdir -p "$MODELS_DIR/vae"
       mkdir -p "$MODELS_DIR/loras"
@@ -321,10 +328,10 @@
       mkdir -p "$MODELS_DIR/upscale_models"
       mkdir -p "$MODELS_DIR/clip"
       mkdir -p "$MODELS_DIR/embeddings"
-      
+
       cat << 'MENU'
       Select models to download:
-      
+
       1) SDXL Base + Refiner
       2) SD 1.5
       3) FLUX.1-dev (requires HF token)
@@ -333,13 +340,13 @@
       6) VAE (SD + SDXL)
       7) Upscalers (4x-UltraSharp, RealESRGAN)
       8) All of the above
-      
+
       q) Quit
-      
+
       MENU
-      
+
       read -p "Choice: " choice
-      
+
       case "$choice" in
         1)
           echo "Downloading SDXL..."
@@ -372,7 +379,7 @@
           echo "Invalid choice"
           ;;
       esac
-      
+
       echo ""
       echo "Done! Models saved to: $MODELS_DIR"
     '';
@@ -385,7 +392,7 @@
   xdg.configFile."comfyui/extra_model_paths.yaml".text = ''
     # Extra model paths for ComfyUI
     # This allows sharing models between different ComfyUI installs
-    
+
     jpyxal:
       base_path: ~/.config/comfy-ui/
       checkpoints: models/checkpoints/
@@ -397,7 +404,7 @@
       embeddings: models/embeddings/
       clip_vision: models/clip_vision/
       ipadapter: models/ipadapter/
-    
+
     # HuggingFace cache (for models downloaded via diffusers)
     huggingface:
       base_path: ~/.cache/huggingface/hub/
@@ -421,7 +428,7 @@
     #   nixified-ai.url = "git+ssh://git@github.com/weyl-ai/nixified-ai-flake.git?ref=b7r6/jpyxal-mvp-usable";
     #
     # Add to your configuration:
-    
+
     { pkgs, inputs, ... }: {
       imports = [ inputs.nixified-ai.nixosModules.comfyui ];
       

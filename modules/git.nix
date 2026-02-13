@@ -1,4 +1,10 @@
-{ config, pkgs, lib, username, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  username,
+  ...
+}:
 
 {
   # ============================================================================
@@ -7,24 +13,25 @@
 
   programs.git = {
     enable = true;
-    
-    # Change these to your info
-    userName = username;
-    userEmail = "${username}@users.noreply.github.com";
-    
-    # Core settings
-    extraConfig = {
+
+    # All settings now go under 'settings' (replaces extraConfig, userName, userEmail)
+    settings = {
+      user = {
+        name = "justinfleek";
+        email = "justinfleek@users.noreply.github.com";
+      };
+
       init.defaultBranch = "main";
-      
+
       core = {
         editor = "nvim";
         autocrlf = "input";
         whitespace = "fix,-indent-with-non-tab,trailing-space,cr-at-eol";
         pager = "delta";
       };
-      
+
       interactive.diffFilter = "delta --color-only --features=interactive";
-      
+
       delta = {
         navigate = true;
         dark = true;
@@ -32,7 +39,7 @@
         side-by-side = false;
         features = "catppuccin-mocha";
       };
-      
+
       # Catppuccin Mocha theme for delta
       "delta \"catppuccin-mocha\"" = {
         blame-palette = "#1e1e2e #181825 #11111b #313244 #45475a";
@@ -65,48 +72,48 @@
         syntax-theme = "Catppuccin Mocha";
         zero-style = "syntax";
       };
-      
+
       merge = {
         conflictstyle = "diff3";
         tool = "nvim";
       };
-      
+
       diff.colorMoved = "default";
-      
+
       pull = {
         rebase = true;
         ff = "only";
       };
-      
+
       push = {
         default = "current";
         autoSetupRemote = true;
         followTags = true;
       };
-      
+
       fetch = {
         prune = true;
         pruneTags = true;
       };
-      
+
       rebase = {
         autoStash = true;
         autoSquash = true;
       };
-      
+
       rerere.enabled = true;
-      
+
       # Aliases
       alias = {
         # Status
         s = "status -sb";
         st = "status";
-        
+
         # Logging
         lg = "log --oneline --graph --decorate -10";
         lga = "log --oneline --graph --decorate --all";
         ll = "log --pretty=format:'%C(magenta)%h%C(reset) - %C(cyan)%an%C(reset) %C(green)(%ar)%C(reset)%C(auto)%d%C(reset)%n  %s' --graph";
-        
+
         # Branching
         br = "branch";
         bra = "branch -a";
@@ -114,59 +121,59 @@
         brD = "branch -D";
         co = "checkout";
         cob = "checkout -b";
-        
+
         # Committing
         ci = "commit";
         cm = "commit -m";
         ca = "commit --amend";
         can = "commit --amend --no-edit";
-        
+
         # Adding
         a = "add";
         aa = "add --all";
         ap = "add --patch";
-        
+
         # Diffing
         d = "diff";
         ds = "diff --staged";
         dw = "diff --word-diff";
-        
+
         # Stashing
         stl = "stash list";
         stp = "stash pop";
         sts = "stash show -p";
         std = "stash drop";
-        
+
         # Reset
         unstage = "reset HEAD --";
         undo = "reset --soft HEAD~1";
         nuke = "reset --hard HEAD";
-        
+
         # Remote
         rv = "remote -v";
-        
+
         # Utils
         aliases = "config --get-regexp ^alias\\.";
         root = "rev-parse --show-toplevel";
         whoami = "config user.email";
         contributors = "shortlog --summary --numbered";
-        
+
         # Interactive
         ri = "rebase -i";
         rc = "rebase --continue";
         ra = "rebase --abort";
-        
+
         # Work in progress
         wip = "!git add -A && git commit -m 'WIP'";
         unwip = "reset HEAD~1";
-        
+
         # Sync
         sync = "!git pull --rebase && git push";
-        
+
         # Clean merged branches
         cleanup = "!git branch --merged | grep -v '\\*\\|main\\|master\\|dev' | xargs -n 1 git branch -d";
       };
-      
+
       # URL rewrites
       url = {
         "git@github.com:" = {
@@ -178,7 +185,7 @@
           pushInsteadOf = "https://gitlab.com/";
         };
       };
-      
+
       # Colors
       color = {
         ui = true;
@@ -193,11 +200,11 @@
           untracked = "red";
         };
       };
-      
+
       # Credential
       credential.helper = "store";
-    };
-    
+    }; # end settings
+
     # Global gitignore
     ignores = [
       # OS
@@ -206,7 +213,7 @@
       "*~"
       "*.swp"
       "*.swo"
-      
+
       # IDEs
       ".idea/"
       ".vscode/"
@@ -214,7 +221,7 @@
       ".project"
       ".classpath"
       ".settings/"
-      
+
       # Build
       "node_modules/"
       "target/"
@@ -223,22 +230,22 @@
       "*.pyc"
       "__pycache__/"
       ".cache/"
-      
+
       # Environment
       ".env"
       ".env.local"
       ".env.*.local"
       "*.env"
-      
+
       # Nix
       "result"
       "result-*"
       ".direnv/"
-      
+
       # Logs
       "*.log"
       "logs/"
-      
+
       # Misc
       ".todo"
       "*.bak"

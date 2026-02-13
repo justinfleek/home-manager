@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # ============================================================================
@@ -14,42 +19,42 @@
     dhall-yaml
     dhall-bash
     dhall-lsp-server
-    
+
     # PureScript
     purescript
     spago
     purs-tidy
     purescript-language-server
-    
+
     # Haskell (for Halogen/PureScript tooling)
     ghc
     cabal-install
     stack
     haskell-language-server
-    
-    # Lean 4
-    lean4
-    elan                     # Lean version manager
-    
+
+    # Lean 4 (use elan for version management, provides lake)
+    # lean4  # Conflicts with elan's lake binary
+    elan # Lean version manager
+
     # Nix
     nil
-    nixfmt-rfc-style
+    nixfmt # Was nixfmt-rfc-style
     nix-tree
     nix-diff
-    nvd                      # Nix version diff
-    
+    nvd # Nix version diff
+
     # === NETWORKING ===
-    tailscale                # Mesh VPN
-    
+    tailscale # Mesh VPN
+
     # === AI/ML ===
     # (nvidia-sdk deps will come from the flake)
-    
+
     # === BUILD TOOLS ===
     just
     watchexec
-    
+
     # === OPENCODE ===
-    opencode
+    # opencode  # Temporarily disabled - requires bun 1.3.9+ (nixpkgs has 1.3.8)
   ];
 
   # ============================================================================
@@ -61,13 +66,13 @@
     text = ''
       #!/usr/bin/env bash
       set -euo pipefail
-      
+
       WORKSPACE="$HOME/workspace"
-      
+
       echo "Setting up workspace at $WORKSPACE..."
       mkdir -p "$WORKSPACE"
       cd "$WORKSPACE"
-      
+
       # Your repos
       REPOS=(
         "git@github.com:straylight-software/sensenet.git"
@@ -77,7 +82,7 @@
         "git@github.com:straylight-software/isospin-microvm.git"
         "git@github.com:omega-agentic/omega-agentic.git"
       )
-      
+
       for repo in "''${REPOS[@]}"; do
         name=$(basename "$repo" .git)
         if [ -d "$name" ]; then
@@ -88,7 +93,7 @@
           git clone "$repo" || echo "Failed to clone $name"
         fi
       done
-      
+
       echo ""
       echo "Workspace ready!"
       echo "Repos:"
@@ -105,11 +110,11 @@
     text = ''
       #!/usr/bin/env bash
       set -euo pipefail
-      
+
       WORKSPACE="$HOME/workspace"
-      
+
       echo "Syncing all repos in $WORKSPACE..."
-      
+
       for dir in "$WORKSPACE"/*/; do
         if [ -d "$dir/.git" ]; then
           name=$(basename "$dir")
@@ -117,7 +122,7 @@
           (cd "$dir" && git fetch --all && git pull --rebase) || echo "Failed to sync $name"
         fi
       done
-      
+
       echo "Done!"
     '';
   };
@@ -138,9 +143,9 @@
     executable = true;
     text = ''
       #!/usr/bin/env bash
-      
+
       WORKSPACE="$HOME/workspace"
-      
+
       # Create workspace .opencode config if not exists
       if [ ! -f "$WORKSPACE/.opencode/config.json" ]; then
         mkdir -p "$WORKSPACE/.opencode"
@@ -152,7 +157,7 @@
       }
       EOF
       fi
-      
+
       # Open opencode in workspace
       cd "$WORKSPACE"
       exec opencode "$@"
@@ -166,7 +171,7 @@
   # PureScript/Halogen project template
   home.file.".local/share/templates/purescript/.envrc".text = ''
     use flake
-    
+
     # PureScript paths
     export PATH="$PWD/node_modules/.bin:$PATH"
     export PATH="$PWD/.spago/bin:$PATH"
@@ -279,7 +284,7 @@
           devShells.''${system}.default = pkgs.mkShell {
             packages = with pkgs; [
               nil
-              nixfmt-rfc-style
+              nixfmt
               nix-tree
             ];
           };
@@ -297,7 +302,7 @@
     wss = "workspace-setup";
     wsy = "workspace-sync";
     wso = "workspace-opencode";
-    
+
     # Quick cd to repos
     sensenet = "cd ~/workspace/sensenet";
     nvidia = "cd ~/workspace/nvidia-sdk";
@@ -305,25 +310,25 @@
     slide = "cd ~/workspace/slide";
     isospin = "cd ~/workspace/isospin-microvm";
     omega = "cd ~/workspace/omega-agentic";
-    
+
     # Tailscale
     ts = "tailscale";
     tss = "tailscale status";
     tsu = "sudo tailscale up";
     tsd = "sudo tailscale down";
-    
+
     # Dhall
     dh = "dhall";
     dhj = "dhall-to-json";
     dhy = "dhall-to-yaml";
-    
+
     # PureScript
     purs = "purs";
     spago = "spago";
     spb = "spago build";
     spt = "spago test";
     spr = "spago run";
-    
+
     # Lean
     lk = "lake";
     lkb = "lake build";
@@ -333,7 +338,7 @@
   programs.bash.initExtra = lib.mkAfter ''
     # Auto-cd to workspace on terminal open (optional)
     # [ -d "$HOME/workspace" ] && cd "$HOME/workspace"
-    
+
     # Quick project creation
     mkpurs() {
       local name="''${1:-my-purs-project}"
@@ -343,7 +348,7 @@
       direnv allow
       echo "PureScript project '$name' created!"
     }
-    
+
     mkdhall() {
       local name="''${1:-my-dhall-project}"
       mkdir -p "$name"
@@ -352,7 +357,7 @@
       direnv allow
       echo "Dhall project '$name' created!"
     }
-    
+
     mklean() {
       local name="''${1:-my-lean-project}"
       mkdir -p "$name"
@@ -361,7 +366,7 @@
       direnv allow
       echo "Lean 4 project '$name' created!"
     }
-    
+
     # Open all repos in tmux
     workspace-tmux() {
       tmux new-session -d -s workspace -c ~/workspace

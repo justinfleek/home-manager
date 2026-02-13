@@ -1,4 +1,10 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 {
   # ============================================================================
@@ -8,7 +14,7 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     systemd.enable = true;
     xwayland.enable = true;
 
@@ -33,27 +39,27 @@
         # Core services
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        
+
         # Wallpaper daemon
         "swww-daemon"
         "sleep 1 && ~/.local/bin/wallpaper"
-        
+
         # Bar
         "waybar"
-        
+
         # Clipboard
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
-        
+
         # Notification daemon
         "dunst"
-        
+
         # Idle daemon
         "hypridle"
-        
+
         # Cursor
         "hyprctl setcursor catppuccin-mocha-mauve-cursors 24"
-        
+
         # Dock (macOS-style)
         "nwg-dock-hyprland -d -i 48 -p 'bottom' -mb 10 -ml 10 -mr 10"
       ];
@@ -84,11 +90,11 @@
         gaps_in = 5;
         gaps_out = 10;
         border_size = 2;
-        
+
         # Catppuccin Mocha colors
         "col.active_border" = "rgba(cba6f7ee) rgba(89b4faee) 45deg";
         "col.inactive_border" = "rgba(313244aa)";
-        
+
         layout = "dwindle";
         resize_on_border = true;
         extend_border_grab_area = 15;
@@ -100,18 +106,18 @@
       # ========================================================================
       decoration = {
         rounding = 12;
-        
+
         active_opacity = 1.0;
         inactive_opacity = 0.92;
         fullscreen_opacity = 1.0;
-        
+
         drop_shadow = true;
         shadow_range = 20;
         shadow_render_power = 3;
         shadow_offset = "0 5";
         "col.shadow" = "rgba(1a1a2eee)";
         "col.shadow_inactive" = "rgba(1a1a2e77)";
-        
+
         blur = {
           enabled = true;
           size = 8;
@@ -134,7 +140,7 @@
       animations = {
         enabled = true;
         first_launch_animation = true;
-        
+
         bezier = [
           # Smooth curves
           "wind, 0.05, 0.9, 0.1, 1.05"
@@ -142,16 +148,16 @@
           "winOut, 0.3, -0.3, 0, 1"
           "liner, 1, 1, 1, 1"
           "linear, 0.0, 0.0, 1.0, 1.0"
-          
+
           # Catppuccin-inspired
           "overshot, 0.05, 0.9, 0.1, 1.1"
           "smoothOut, 0.36, 0, 0.66, -0.56"
           "smoothIn, 0.25, 1, 0.5, 1"
-          
+
           # Snappy
           "snap, 0.2, 1, 0.3, 1"
         ];
-        
+
         animation = [
           "windows, 1, 6, wind, slide"
           "windowsIn, 1, 5, winIn, slide"
@@ -172,13 +178,13 @@
       input = {
         kb_layout = "us";
         kb_options = "caps:escape"; # Caps Lock as Escape (vim gang)
-        
+
         follow_mouse = 1;
         mouse_refocus = true;
-        
+
         sensitivity = 0;
         accel_profile = "flat";
-        
+
         touchpad = {
           natural_scroll = true;
           disable_while_typing = true;
@@ -228,20 +234,20 @@
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
         force_default_wallpaper = 0;
-        
+
         mouse_move_enables_dpms = true;
         key_press_enables_dpms = true;
-        
+
         enable_swallow = true;
         swallow_regex = "^(ghostty|kitty|Alacritty|foot)$";
         swallow_exception_regex = "^(wev)$";
-        
+
         focus_on_activate = false;
         animate_manual_resizes = true;
         animate_mouse_windowdragging = true;
-        
+
         new_window_takes_over_fullscreen = 2;
-        
+
         vfr = true;
         vrr = 1;
       };
@@ -265,37 +271,37 @@
         "float, class:^(imv)$"
         "float, class:^(mpv)$"
         "float, class:^(swappy)$"
-        
+
         # Picture in picture
         "float, title:^(Picture-in-Picture)$"
         "pin, title:^(Picture-in-Picture)$"
         "size 640 360, title:^(Picture-in-Picture)$"
         "move 100%-660 100%-380, title:^(Picture-in-Picture)$"
-        
+
         # Firefox
         "opacity 1.0 override 1.0 override, class:^(firefox)$"
-        
+
         # Discord
         "workspace 9 silent, class:^(discord)$"
-        
+
         # Spotify
         "workspace 8 silent, class:^(Spotify)$"
-        
+
         # Steam
         "float, class:^(steam)$,title:^(Friends List)$"
         "float, class:^(steam)$,title:^(Steam - News)$"
-        
+
         # XWayland video bridge (for screen sharing)
         "opacity 0.0 override,class:^(xwaylandvideobridge)$"
         "noanim,class:^(xwaylandvideobridge)$"
         "noinitialfocus,class:^(xwaylandvideobridge)$"
         "maxsize 1 1,class:^(xwaylandvideobridge)$"
         "noblur,class:^(xwaylandvideobridge)$"
-        
+
         # Rofi
         "animation slide, class:^(Rofi)$"
         "noanim, class:^(Rofi)$"
-        
+
         # Terminal opacity (let's see that blur)
         "opacity 0.95 override 0.90 override, class:^(ghostty)$"
         "opacity 0.95 override 0.90 override, class:^(kitty)$"
@@ -330,7 +336,7 @@
         "$mod, E, exec, $fileManager"
         "$mod, B, exec, $browser"
         "$mod, Space, exec, $menu"
-        
+
         # Window management
         "$mod, Q, killactive"
         "$mod SHIFT, Q, exit"
@@ -342,7 +348,7 @@
         "$mod, G, togglegroup"
         "$mod, Tab, changegroupactive, f"
         "$mod SHIFT, Tab, changegroupactive, b"
-        
+
         # Focus
         "$mod, H, movefocus, l"
         "$mod, L, movefocus, r"
@@ -352,7 +358,7 @@
         "$mod, Right, movefocus, r"
         "$mod, Up, movefocus, u"
         "$mod, Down, movefocus, d"
-        
+
         # Move windows
         "$mod SHIFT, H, movewindow, l"
         "$mod SHIFT, L, movewindow, r"
@@ -362,7 +368,7 @@
         "$mod SHIFT, Right, movewindow, r"
         "$mod SHIFT, Up, movewindow, u"
         "$mod SHIFT, Down, movewindow, d"
-        
+
         # Workspaces
         "$mod, 1, workspace, 1"
         "$mod, 2, workspace, 2"
@@ -374,7 +380,7 @@
         "$mod, 8, workspace, 8"
         "$mod, 9, workspace, 9"
         "$mod, 0, workspace, 10"
-        
+
         # Move to workspace
         "$mod SHIFT, 1, movetoworkspace, 1"
         "$mod SHIFT, 2, movetoworkspace, 2"
@@ -386,48 +392,48 @@
         "$mod SHIFT, 8, movetoworkspace, 8"
         "$mod SHIFT, 9, movetoworkspace, 9"
         "$mod SHIFT, 0, movetoworkspace, 10"
-        
+
         # Silent move (don't follow)
         "$mod ALT, 1, movetoworkspacesilent, 1"
         "$mod ALT, 2, movetoworkspacesilent, 2"
         "$mod ALT, 3, movetoworkspacesilent, 3"
         "$mod ALT, 4, movetoworkspacesilent, 4"
         "$mod ALT, 5, movetoworkspacesilent, 5"
-        
+
         # Scroll through workspaces
         "$mod, mouse_down, workspace, e+1"
         "$mod, mouse_up, workspace, e-1"
         "$mod, bracketright, workspace, e+1"
         "$mod, bracketleft, workspace, e-1"
-        
+
         # Special workspace (scratchpad)
         "$mod, grave, togglespecialworkspace, magic"
         "$mod SHIFT, grave, movetoworkspace, special:magic"
-        
+
         # Screenshots
         ", Print, exec, ~/.local/bin/screenshot area"
         "SHIFT, Print, exec, ~/.local/bin/screenshot full"
         "ALT, Print, exec, ~/.local/bin/screenshot window"
-        
+
         # Color picker
         "$mod SHIFT, C, exec, ~/.local/bin/colorpicker"
-        
+
         # Clipboard history
         "$mod, V, exec, cliphist list | rofi -dmenu -p 'Clipboard' | cliphist decode | wl-copy"
-        
+
         # Lock screen
         "$mod SHIFT, Escape, exec, hyprlock"
-        
+
         # Power menu
         "$mod, Escape, exec, ~/.local/bin/powermenu"
-        
+
         # Wallpaper
         "$mod, W, exec, ~/.local/bin/wallpaper"
-        
+
         # Notification center
         "$mod, N, exec, dunstctl history-pop"
         "$mod SHIFT, N, exec, dunstctl close-all"
-        
+
         # Apps
         "$mod, C, exec, code"
         "$mod, O, exec, obsidian"
@@ -488,10 +494,10 @@
   # ============================================================================
   # HYPRLOCK - Lock screen
   # ============================================================================
-  
+
   programs.hyprlock = {
     enable = true;
-    package = inputs.hyprlock.packages.${pkgs.system}.hyprlock;
+    package = inputs.hyprlock.packages.${pkgs.stdenv.hostPlatform.system}.hyprlock;
     settings = {
       general = {
         disable_loading_bar = true;
@@ -500,36 +506,40 @@
         no_fade_in = false;
       };
 
-      background = [{
-        path = "screenshot";
-        blur_passes = 3;
-        blur_size = 8;
-        color = "rgba(30, 30, 46, 1.0)";
-      }];
+      background = [
+        {
+          path = "screenshot";
+          blur_passes = 3;
+          blur_size = 8;
+          color = "rgba(30, 30, 46, 1.0)";
+        }
+      ];
 
-      input-field = [{
-        size = "250, 50";
-        outline_thickness = 3;
-        dots_size = 0.33;
-        dots_spacing = 0.15;
-        dots_center = true;
-        outer_color = "rgb(203, 166, 247)";
-        inner_color = "rgb(49, 50, 68)";
-        font_color = "rgb(205, 214, 244)";
-        fade_on_empty = true;
-        fade_timeout = 1000;
-        placeholder_text = "<i>Password...</i>";
-        hide_input = false;
-        rounding = 12;
-        check_color = "rgb(166, 227, 161)";
-        fail_color = "rgb(243, 139, 168)";
-        fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";
-        fail_timeout = 2000;
-        fail_transition = 300;
-        position = "0, -20";
-        halign = "center";
-        valign = "center";
-      }];
+      input-field = [
+        {
+          size = "250, 50";
+          outline_thickness = 3;
+          dots_size = 0.33;
+          dots_spacing = 0.15;
+          dots_center = true;
+          outer_color = "rgb(203, 166, 247)";
+          inner_color = "rgb(49, 50, 68)";
+          font_color = "rgb(205, 214, 244)";
+          fade_on_empty = true;
+          fade_timeout = 1000;
+          placeholder_text = "<i>Password...</i>";
+          hide_input = false;
+          rounding = 12;
+          check_color = "rgb(166, 227, 161)";
+          fail_color = "rgb(243, 139, 168)";
+          fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";
+          fail_timeout = 2000;
+          fail_transition = 300;
+          position = "0, -20";
+          halign = "center";
+          valign = "center";
+        }
+      ];
 
       label = [
         # Time
@@ -572,7 +582,7 @@
 
   services.hypridle = {
     enable = true;
-    package = inputs.hypridle.packages.${pkgs.system}.hypridle;
+    package = inputs.hypridle.packages.${pkgs.stdenv.hostPlatform.system}.hypridle;
     settings = {
       general = {
         lock_cmd = "pidof hyprlock || hyprlock";

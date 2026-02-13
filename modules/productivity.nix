@@ -8,7 +8,7 @@
   home.packages = with pkgs; [
     # === NOTE-TAKING ===
     obsidian                 # Markdown knowledge base
-    logseq                   # Outliner + knowledge base
+    # logseq                   # Outliner + knowledge base
     zettlr                   # Academic markdown
     
     # === TASK MANAGEMENT ===

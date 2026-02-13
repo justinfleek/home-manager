@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # ============================================================================
@@ -7,10 +12,10 @@
 
   services.dunst = {
     enable = true;
-    
+
     iconTheme = {
       name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
+      package = pkgs.catppuccin-papirus-folders;
       size = "32x32";
     };
 
@@ -19,7 +24,7 @@
         # Display
         monitor = 0;
         follow = "mouse";
-        
+
         # Geometry
         width = "(300, 400)";
         height = 300;
@@ -27,7 +32,7 @@
         offset = "15x15";
         scale = 0;
         notification_limit = 5;
-        
+
         # Progress bar
         progress_bar = true;
         progress_bar_height = 10;
@@ -35,7 +40,7 @@
         progress_bar_min_width = 150;
         progress_bar_max_width = 400;
         progress_bar_corner_radius = 5;
-        
+
         # Appearance
         indicate_hidden = true;
         transparency = 0;
@@ -49,7 +54,7 @@
         separator_color = "frame";
         sort = true;
         idle_threshold = 120;
-        
+
         # Text
         font = "Inter 11";
         line_height = 0;
@@ -63,16 +68,16 @@
         stack_duplicates = true;
         hide_duplicate_count = false;
         show_indicators = true;
-        
+
         # Icons
         icon_position = "left";
         min_icon_size = 32;
         max_icon_size = 64;
-        
+
         # History
         sticky_history = true;
         history_length = 20;
-        
+
         # Misc
         dmenu = "${pkgs.rofi}/bin/rofi -dmenu -p dunst";
         browser = "${pkgs.firefox}/bin/firefox -new-tab";
@@ -81,11 +86,11 @@
         class = "Dunst";
         corner_radius = 12;
         ignore_dbusclose = false;
-        
+
         # Layer
         layer = "overlay";
         force_xwayland = false;
-        
+
         # Mouse
         mouse_left_click = "do_action, close_current";
         mouse_middle_click = "close_all";

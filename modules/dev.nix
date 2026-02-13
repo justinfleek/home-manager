@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # ============================================================================
@@ -13,132 +18,132 @@
     cargo-edit
     cargo-audit
     cargo-outdated
-    
+
     # Go
     go
     gopls
     golangci-lint
     delve
-    
-    # Python
-    python312
-    python312Packages.pip
-    python312Packages.virtualenv
+
+    # Python (base provided via nvidia.nix withPackages env)
+    # python312  # Conflicts with nvidia.nix python env
+    # python312Packages.pip  # Conflicts
+    # python312Packages.virtualenv  # Conflicts
     poetry
     ruff
     pyright
-    
+
     # Node.js
     nodejs_22
     bun
     deno
     pnpm
     yarn
-    
+
     # C/C++
     gcc
-    clang
+    # clang  # Conflicts with gcc on c++ binary
     cmake
     gnumake
-    ninja
-    
+    # ninja  # Included in nvidia.nix python env
+
     # Zig
     zig
-    zls
-    
+    # zls  # Temporarily disabled - build issue in nixpkgs
+
     # Haskell
     ghc
     cabal-install
     stack
     haskell-language-server
-    
+
     # Elixir
     elixir
-    elixir-ls
-    
+    # elixir-ls  # LICENSE conflicts with cuda-merged
+
     # Java/Kotlin
     jdk21
     gradle
     kotlin
     kotlin-language-server
-    
+
     # === DATABASES ===
-    postgresql
+    # postgresql  # Provided by webdev.nix (postgresql_16)
     sqlite
     redis
-    mariadb                  # MySQL-compatible
-    dbeaver-bin              # GUI database tool
-    
+    mariadb # MySQL-compatible
+    dbeaver-bin # GUI database tool
+
     # Database CLIs
     pgcli
     litecli
     mycli
-    
+
     # === API TOOLS ===
     httpie
-    xh                       # Rust httpie
-    curlie                   # Curl + httpie
-    grpcurl                  # gRPC CLI
-    postman                  # API testing GUI
-    insomnia                 # API testing GUI
-    
+    xh # Rust httpie
+    curlie # Curl + httpie
+    grpcurl # gRPC CLI
+    postman # API testing GUI
+    insomnia # API testing GUI
+
     # === JSON/YAML ===
     jq
     yq
-    fx                       # JSON viewer
-    jless                    # JSON pager
-    
+    fx # JSON viewer
+    jless # JSON pager
+
     # === DEBUGGING ===
-    gdb
+    # gdb  # Included in cuda-merged
     lldb
     valgrind
     strace
     ltrace
-    
+
     # === PROFILING ===
     heaptrack
     perf-tools
-    hyperfine                # Benchmarking
-    
+    hyperfine # Benchmarking
+
     # === BUILD TOOLS ===
-    just                     # Task runner
-    go-task                  # Task runner (Taskfile)
+    just # Task runner
+    go-task # Task runner (Taskfile)
     meson
-    
+
     # === VERSION CONTROL ===
     git-lfs
     git-crypt
     pre-commit
     commitizen
-    
+
     # === SECURITY ===
-    trivy                    # Container scanning
-    semgrep                  # Code analysis
-    gitleaks                 # Secret scanning
-    
+    trivy # Container scanning
+    semgrep # Code analysis
+    gitleaks # Secret scanning
+
     # === DOCUMENTATION ===
-    mdbook                   # Markdown books
-    
+    mdbook # Markdown books
+
     # === CLOUD CLIs ===
     awscli2
     google-cloud-sdk
     azure-cli
-    doctl                    # DigitalOcean
-    flyctl                   # Fly.io
+    doctl # DigitalOcean
+    flyctl # Fly.io
     netlify-cli
     nodePackages.vercel
-    
+
     # === MISC ===
-    watchexec                # File watcher
-    entr                     # Run command on change
-    tokei                    # Code stats
-    scc                      # Code counter
-    cloc                     # Lines of code
-    grex                     # Regex generator
-    sd                       # sed alternative
-    choose                   # cut alternative
-    tealdeer                 # tldr client
-    navi                     # Cheatsheet
+    watchexec # File watcher
+    entr # Run command on change
+    tokei # Code stats
+    # scc # Code counter - conflicts with sc-controller in gaming.nix
+    cloc # Lines of code
+    grex # Regex generator
+    sd # sed alternative
+    choose # cut alternative
+    tealdeer # tldr client
+    navi # Cheatsheet
   ];
 
   # ============================================================================
@@ -147,26 +152,26 @@
 
   xdg.configFile."just/justfile".text = ''
     # Default justfile template
-    
+
     default:
       @just --list
-    
+
     # Run development server
     dev:
       @echo "Override this in your project"
-    
+
     # Run tests
     test:
       @echo "Override this in your project"
-    
+
     # Build project
     build:
       @echo "Override this in your project"
-    
+
     # Format code
     fmt:
       @echo "Override this in your project"
-    
+
     # Lint code
     lint:
       @echo "Override this in your project"
@@ -189,7 +194,7 @@
           - id: check-added-large-files
           - id: check-merge-conflict
           - id: detect-private-key
-    
+
       - repo: https://github.com/commitizen-tools/commitizen
         rev: v3.13.0
         hooks:
@@ -239,45 +244,45 @@
     # Just
     j = "just";
     jl = "just --list";
-    
+
     # Python
     py = "python3";
     pip = "pip3";
     venv = "python3 -m venv";
     activate = "source .venv/bin/activate";
-    
+
     # Node
     pn = "pnpm";
     ni = "npm install";
     nr = "npm run";
-    
+
     # Cargo
     cb = "cargo build";
     cr = "cargo run";
     ct = "cargo test";
     cw = "cargo watch -x run";
-    
+
     # Go
     gr = "go run .";
     gb = "go build";
     gt = "go test ./...";
-    
+
     # Database
     pg = "pgcli";
     sql = "litecli";
-    
+
     # HTTP
     http = "xh";
-    
+
     # JSON
     jqp = "jless";
-    
+
     # Benchmarking
     bench = "hyperfine";
-    
+
     # Code stats
     stats = "tokei";
-    
+
     # Watch files
     watch = "watchexec";
   };
@@ -320,19 +325,19 @@
       
       echo "Project '$name' created with $lang template"
     }
-    
+
     # Quick HTTP server
     serve() {
       local port="''${1:-8000}"
       echo "Serving on http://localhost:$port"
       python3 -m http.server "$port"
     }
-    
+
     # Run command on file change
     onchange() {
       watchexec -e "''${2:-*}" -- "$1"
     }
-    
+
     # Quick benchmark
     benchmark() {
       hyperfine --warmup 3 "$@"

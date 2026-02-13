@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # ============================================================================
@@ -7,34 +12,34 @@
 
   home.packages = with pkgs; [
     # === CONTAINERS ===
-    podman                   # Docker alternative (rootless)
-    podman-compose           # Docker-compose for Podman
-    podman-tui               # TUI for Podman
-    distrobox                # Use any Linux distro in terminal
-    toolbox                  # Fedora toolbox
-    
+    podman # Docker alternative (rootless)
+    podman-compose # Docker-compose for Podman
+    podman-tui # TUI for Podman
+    distrobox # Use any Linux distro in terminal
+    toolbox # Fedora toolbox
+
     # === DOCKER ===
-    docker-compose           # Multi-container apps
-    lazydocker               # TUI for Docker
-    dive                     # Explore docker layers
-    
+    docker-compose # Multi-container apps
+    lazydocker # TUI for Docker
+    dive # Explore docker layers
+
     # === KUBERNETES ===
-    kubectl                  # K8s CLI
-    kubectx                  # Switch contexts
-    k9s                      # K8s TUI
-    helm                     # K8s package manager
-    kind                     # K8s in Docker
-    minikube                 # Local K8s
-    
+    kubectl # K8s CLI
+    kubectx # Switch contexts
+    k9s # K8s TUI
+    # helm                   # Use kubernetes-helm from containers-extra.nix
+    kind # K8s in Docker
+    minikube # Local K8s
+
     # === VIRTUALIZATION ===
     # Note: QEMU/KVM needs system config
-    virt-manager             # VM GUI
-    
+    virt-manager # VM GUI
+
     # === INFRASTRUCTURE ===
-    terraform                # Infrastructure as code
-    ansible                  # Configuration management
-    packer                   # Image builder
-    vagrant                  # Dev environments
+    terraform # Infrastructure as code
+    ansible # Configuration management
+    packer # Image builder
+    vagrant # Dev environments
   ];
 
   # ============================================================================
@@ -49,27 +54,27 @@
     dbl = "distrobox list";
     dbr = "distrobox rm";
     dbs = "distrobox stop";
-    
+
     # Quick distroboxes
     arch = "distrobox enter arch";
     fedora = "distrobox enter fedora";
     ubuntu = "distrobox enter ubuntu";
     debian = "distrobox enter debian";
-    
+
     # Podman
     pd = "podman";
     pdi = "podman images";
     pdc = "podman ps";
     pdca = "podman ps -a";
     pdr = "podman run -it --rm";
-    
+
     # Docker
     d = "docker";
     dc = "docker-compose";
     dcu = "docker-compose up -d";
     dcd = "docker-compose down";
     dcl = "docker-compose logs -f";
-    
+
     # Kubernetes
     k = "kubectl";
     kx = "kubectx";

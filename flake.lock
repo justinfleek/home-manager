@@ -1254,11 +1254,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1770942000,
-        "narHash": "sha256-mJeZ6Ej8sAyGEibrXPsVc5kEtcOfbt3TUvXOvaCJk78=",
+        "lastModified": 1771012658,
+        "narHash": "sha256-xBwAc9xdOj2rLE25kwXadI9KJY58ewOfT7JLBZCDCQY=",
         "owner": "anomalyco",
         "repo": "opencode",
-        "rev": "991496a753545f2705072d4da537c175dca357e6",
+        "rev": "d30e91738570ee9ea06ca6f2d49bdae65b0ff3ec",
         "type": "github"
       },
       "original": {

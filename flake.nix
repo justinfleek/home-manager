@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -59,9 +59,9 @@
 
     # Opencode
     opencode.url = "github:anomalyco/opencode";
-    
+
     # Note: Lean 4 is available in nixpkgs directly as pkgs.lean4
-    
+
     # PureScript overlay
     purescript-overlay = {
       url = "github:thomashoneyman/purescript-overlay";
@@ -69,7 +69,15 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, catppuccin, nix-colors, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      catppuccin,
+      nix-colors,
+      ...
+    }@inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -84,21 +92,22 @@
           })
         ];
       };
-      
+
       # Define your username here
       username = "justin"; # Workstation user
-      
-    in {
+
+    in
+    {
       homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        
+
         extraSpecialArgs = {
           inherit inputs username nix-colors;
         };
-        
+
         modules = [
           catppuccin.homeModules.catppuccin
-          
+
           # Core
           ./home.nix
           ./modules/hyprland.nix
@@ -114,9 +123,9 @@
           ./modules/firefox.nix
           ./modules/git.nix
           ./modules/tools.nix
-          
+
           # Extended
-          ./modules/spicetify.nix
+          # ./modules/spicetify.nix  # Temporarily disabled - network fetch issue
           ./modules/gaming.nix
           ./modules/containers.nix
           ./modules/music.nix
@@ -124,79 +133,79 @@
           ./modules/chat.nix
           ./modules/productivity.nix
           ./modules/dev.nix
-          
+
           # Workspace
           ./modules/workspace.nix
           ./modules/opencode-workspace.nix
-          
+
           # Themes (PRISM + Cursor + hypermodern-emacs)
           ./modules/prism-themes.nix
-          
+
           # Extra terminals and shells
           ./modules/terminals.nix
           ./modules/nushell.nix
-          
+
           # Extra editors
           ./modules/editors-extra.nix
-          
+
           # File managers
           ./modules/file-managers.nix
-          
+
           # Research & academic (disabled - bibtool build issues)
           # ./modules/research.nix
-          
+
           # Sync & backup
           ./modules/sync.nix
-          
+
           # Widgets (AGS/Aylur-style)
           ./modules/ags.nix
           ./modules/hyprpanel.nix
-          
+
           # Browsers
           ./modules/browsers.nix
-          
+
           # API tools
           ./modules/api-tools.nix
-          
+
           # Containers extra
           ./modules/containers-extra.nix
-          
+
           # AI - Local (Ollama, Open WebUI)
-          ./modules/ai-local.nix
-          
+          # ./modules/ai-local.nix  # Python env conflicts - needs consolidation
+
           # AI - Coding (Aider, Continue)
-          ./modules/ai-coding.nix
-          
+          # ./modules/ai-coding.nix  # Python env conflicts - needs consolidation
+
           # ComfyUI with fxy custom nodes
-          ./modules/comfyui.nix
-          
+          # ./modules/comfyui.nix  # Python env conflicts - needs consolidation
+
           # Speech (Whisper, TTS)
-          ./modules/speech.nix
-          
+          # ./modules/speech.nix  # Python env conflicts - needs consolidation
+
           # NVIDIA/GPU
           ./modules/nvidia.nix
-          
+
           # Web Development (full stack)
           ./modules/webdev.nix
-          
+
           # Security Hardening (white hat mode)
           ./modules/security.nix
-          
+
           # Desktop launchers, dock, and icons
           ./modules/launchers.nix
-          
+
           # Alternative WMs (optional - uncomment to use)
           # ./modules/sway.nix
           # ./modules/niri.nix
         ];
       };
-      
+
       # Dev shell for working on this config
       devShells.${system}.default = pkgs.mkShell {
         packages = [
           inputs.home-manager.packages.${system}.home-manager
           pkgs.nil
-          pkgs.nixfmt-rfc-style
+          pkgs.nixfmt
         ];
       };
     };
