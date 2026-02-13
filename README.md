@@ -24,10 +24,10 @@ Catppuccin Mocha + Hyprland + vim joyer vibes + AI/ML stack + the works.
 
 ```bash
 # Clone the repo
-git clone git@github.com:justinfleek/home-manager.git ~/.config/home-manager
+git clone git@github.com:justinfleek/jpyxal-dots.git ~/.config/jpyxal-dots
 
 # Build and activate
-cd ~/.config/home-manager
+cd ~/.config/jpyxal-dots
 home-manager switch --flake .#justin -b backup
 ```
 
@@ -44,17 +44,18 @@ home-manager switch --flake .#justin -b backup
 
 ### Disabled Modules (broken upstream)
 
-| Module | Issue |
-|--------|-------|
+| Module      | Issue                 |
+| ----------- | --------------------- |
 | `spicetify` | Network fetch failure |
-| `ai-local` | Package conflicts |
-| `ai-coding` | Package conflicts |
-| `speech` | Package conflicts |
-| `comfyui` | Package conflicts |
+| `ai-local`  | Package conflicts     |
+| `ai-coding` | Package conflicts     |
+| `speech`    | Package conflicts     |
+| `comfyui`   | Package conflicts     |
 
 ### SSH Configuration
 
 Pre-configured for:
+
 - **GitHub**: `git@github.com` / `gh:` (user: justinfleek)
 - **FXY Fleet**: All machines with justin@id_ed25519
 
@@ -62,76 +63,76 @@ Pre-configured for:
 
 ### Core Desktop
 
-| Component | Description |
-|-----------|-------------|
+| Component    | Description                               |
+| ------------ | ----------------------------------------- |
 | **Hyprland** | Tiling Wayland compositor with animations |
-| **Waybar** | Glassmorphism status bar |
-| **Dunst** | Notifications |
-| **Rofi** | App launcher |
-| **swww** | Wallpaper daemon |
-| **Hyprlock** | Lock screen |
-| **Hypridle** | Idle daemon |
+| **Waybar**   | Glassmorphism status bar                  |
+| **Dunst**    | Notifications                             |
+| **Rofi**     | App launcher                              |
+| **swww**     | Wallpaper daemon                          |
+| **Hyprlock** | Lock screen                               |
+| **Hypridle** | Idle daemon                               |
 
 ### Terminals & Shells
 
-| Component | Description |
-|-----------|-------------|
+| Component   | Description                        |
+| ----------- | ---------------------------------- |
 | **Ghostty** | GPU-accelerated terminal (primary) |
-| **Wezterm** | Lua-configurable GPU terminal |
-| **Zellij** | Modern tmux alternative |
-| **Bash** | With Starship + Atuin + Zoxide |
+| **Wezterm** | Lua-configurable GPU terminal      |
+| **Zellij**  | Modern tmux alternative            |
+| **Bash**    | With Starship + Atuin + Zoxide     |
 
 ### Editors
 
-| Component | Description |
-|-----------|-------------|
-| **Neovim** | LazyVim IDE with full LSP |
+| Component   | Description                    |
+| ----------- | ------------------------------ |
+| **Neovim**  | LazyVim IDE with full LSP      |
 | **Neovide** | GPU Neovim GUI with animations |
-| **Helix** | Post-modern modal editor |
-| **VS Code** | VSCodium with extensions |
+| **Helix**   | Post-modern modal editor       |
+| **VS Code** | VSCodium with extensions       |
 
 ### File Managers
 
-| Component | Description |
-|-----------|-------------|
-| **Yazi** | Fast rust file manager |
-| **LF** | Minimal Go file manager |
+| Component  | Description                 |
+| ---------- | --------------------------- |
+| **Yazi**   | Fast rust file manager      |
+| **LF**     | Minimal Go file manager     |
 | **Ranger** | Classic Python file manager |
 
 ### Development
 
-| Component | Description |
-|-----------|-------------|
-| **Languages** | Rust, Go, Python, Node, Zig, Haskell |
+| Component      | Description                          |
+| -------------- | ------------------------------------ |
+| **Languages**  | Rust, Go, Python, Node, Zig, Haskell |
 | **Containers** | Docker, Podman, K8s, Lazydocker, K9s |
-| **Git** | Lazygit, Delta (catppuccin), gh CLI |
-| **Nix** | nil LSP, nixfmt, nix-tree |
+| **Git**        | Lazygit, Delta (catppuccin), gh CLI  |
+| **Nix**        | nil LSP, nixfmt, nix-tree            |
 
 ### GPU/NVIDIA
 
-| Component | Description |
-|-----------|-------------|
-| **CUDA** | Full toolkit via cudatoolkit |
-| **nvtop/nvitop** | GPU monitoring |
-| **TensorRT** | Inference optimization |
+| Component        | Description                  |
+| ---------------- | ---------------------------- |
+| **CUDA**         | Full toolkit via cudatoolkit |
+| **nvtop/nvitop** | GPU monitoring               |
+| **TensorRT**     | Inference optimization       |
 
 ### Apps
 
-| Component | Description |
-|-----------|-------------|
-| **Firefox** | With custom search engines |
-| **Obsidian** | Knowledge management |
-| **Discord** | Via Vesktop |
-| **Spotify** | Native client |
-| **OBS Studio** | Streaming/recording |
+| Component      | Description                |
+| -------------- | -------------------------- |
+| **Firefox**    | With custom search engines |
+| **Obsidian**   | Knowledge management       |
+| **Discord**    | Via Vesktop                |
+| **Spotify**    | Native client              |
+| **OBS Studio** | Streaming/recording        |
 
 ### Productivity
 
-| Component | Description |
-|-----------|-------------|
-| **Syncthing** | P2P file sync (with tray) |
-| **Restic/Borg** | Backups |
-| **pass/gopass** | Password management |
+| Component       | Description               |
+| --------------- | ------------------------- |
+| **Syncthing**   | P2P file sync (with tray) |
+| **Restic/Borg** | Backups                   |
+| **pass/gopass** | Password management       |
 
 ## File Structure
 
@@ -165,19 +166,19 @@ Pre-configured for:
 
 ### Hyprland
 
-| Key | Action |
-|-----|--------|
-| `Super + Return` | Terminal (Ghostty) |
-| `Super + Space` | App launcher (Rofi) |
-| `Super + Q` | Close window |
-| `Super + F` | Fullscreen |
-| `Super + H/J/K/L` | Focus vim-style |
-| `Super + Shift + H/J/K/L` | Move window |
-| `Super + 1-9` | Workspaces |
-| `Super + V` | Clipboard history |
-| `Print` | Screenshot |
-| `Super + Escape` | Power menu |
-| `Super + L` | Lock screen |
+| Key                       | Action              |
+| ------------------------- | ------------------- |
+| `Super + Return`          | Terminal (Ghostty)  |
+| `Super + Space`           | App launcher (Rofi) |
+| `Super + Q`               | Close window        |
+| `Super + F`               | Fullscreen          |
+| `Super + H/J/K/L`         | Focus vim-style     |
+| `Super + Shift + H/J/K/L` | Move window         |
+| `Super + 1-9`             | Workspaces          |
+| `Super + V`               | Clipboard history   |
+| `Print`                   | Screenshot          |
+| `Super + Escape`          | Power menu          |
+| `Super + L`               | Lock screen         |
 
 ### Shell Aliases
 
@@ -209,7 +210,7 @@ gd             # git diff
 ## Updating
 
 ```bash
-cd ~/.config/home-manager
+cd ~/.config/jpyxal-dots
 nix flake update
 home-manager switch --flake .#justin
 ```
@@ -217,12 +218,15 @@ home-manager switch --flake .#justin
 ## Troubleshooting
 
 ### Services fail on KDE
+
 Expected - waybar, cliphist, wlsunset require Hyprland/Wayland session.
 
 ### xorg deprecation warnings
+
 These come from upstream hyprland flake inputs, not fixable locally.
 
 ### Package conflicts
+
 Some packages are disabled due to buildEnv conflicts. Check git history for details.
 
 ## Credits
@@ -233,4 +237,4 @@ Some packages are disabled due to buildEnv conflicts. Check git history for deta
 
 ---
 
-**j-pyxal dots** - *the kitchen sink, riced to perfection*
+**j-pyxal dots** - _the kitchen sink, riced to perfection_

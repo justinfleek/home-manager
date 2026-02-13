@@ -11,7 +11,7 @@
 
 {
   # ============================================================================
-  # HYPERMODERN HOME MANAGER CONFIG
+  # JPYXAL DOTS
   # Riced to absolute perfection - vim joyer approved
   # ============================================================================
 
@@ -22,6 +22,7 @@
 
     # Environment variables
     sessionVariables = {
+      FLAKE = "$HOME/.config/jpyxal-dots";
       EDITOR = "nvim";
       VISUAL = "nvim";
       TERMINAL = "ghostty";
