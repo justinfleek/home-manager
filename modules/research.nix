@@ -272,7 +272,7 @@
       scroll-full-overlap = "0.01";
       scroll-step = 100;
       zoom-min = 10;
-      guioptions = "";
+      # guioptions set in home.nix
       
       # Font
       font = "JetBrainsMono Nerd Font 11";
@@ -300,7 +300,8 @@
   # ============================================================================
 
   programs.bash.shellAliases = {
-    pdf = "sioyek";
+    # pdf alias in productivity.nix as zathura
+    sio = "sioyek";
     zth = "zathura";
     zot = "zotero";
   };

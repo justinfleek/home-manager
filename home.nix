@@ -30,8 +30,8 @@
       GTK_THEME = "catppuccin-mocha-mauve-standard";
       QT_STYLE_OVERRIDE = "kvantum";
       
-      # FZF catppuccin colors
-      FZF_DEFAULT_OPTS = ''
+      # FZF catppuccin colors (use mkForce to override catppuccin module)
+      FZF_DEFAULT_OPTS = lib.mkForce ''
         --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8
         --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc
         --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8
@@ -146,13 +146,11 @@
     swww               # Animated wallpapers
     
     # === FONTS ===
-    (nerdfonts.override { fonts = [ 
-      "JetBrainsMono" 
-      "FiraCode" 
-      "Iosevka"
-      "CascadiaCode"
-      "GeistMono"
-    ]; })
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.fira-code
+    nerd-fonts.iosevka
+    nerd-fonts.caskaydia-cove
+    nerd-fonts.geist-mono
     inter
     lexend
     
@@ -235,13 +233,7 @@
         variant = "mocha";
       };
     };
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.catppuccin-papirus-folders.override {
-        flavor = "mocha";
-        accent = "mauve";
-      };
-    };
+    # iconTheme handled by catppuccin module
     cursorTheme = {
       name = "catppuccin-mocha-mauve-cursors";
       package = pkgs.catppuccin-cursors.mochaMauve;
@@ -309,14 +301,7 @@
     # Bluetooth tray
     blueman-applet.enable = true;
     
-    # GPG agent
-    gpg-agent = {
-      enable = true;
-      enableSshSupport = true;
-      pinentryPackage = pkgs.pinentry-curses;
-      defaultCacheTtl = 86400;
-      maxCacheTtl = 86400;
-    };
+    # GPG agent - configured in security.nix
   };
 
   # ============================================================================
@@ -364,11 +349,11 @@
       changeDirWidgetCommand = "fd --type d --hidden --follow --exclude .git";
     };
     
-    # Btop
+    # Btop (theme handled by catppuccin module)
     btop = {
       enable = true;
       settings = {
-        color_theme = "catppuccin_mocha";
+        # color_theme handled by catppuccin
         theme_background = false;
         vim_keys = true;
         rounded_corners = true;
@@ -377,44 +362,7 @@
       };
     };
     
-    # Zathura PDF viewer
-    zathura = {
-      enable = true;
-      options = {
-        selection-clipboard = "clipboard";
-        adjust-open = "best-fit";
-        pages-per-row = 1;
-        scroll-page-aware = true;
-        scroll-full-overlap = "0.01";
-        scroll-step = 100;
-        zoom-min = 10;
-        guioptions = "none";
-        
-        # Catppuccin Mocha
-        default-bg = "#1e1e2e";
-        default-fg = "#cdd6f4";
-        statusbar-fg = "#cdd6f4";
-        statusbar-bg = "#313244";
-        inputbar-bg = "#313244";
-        inputbar-fg = "#cdd6f4";
-        notification-bg = "#313244";
-        notification-fg = "#cdd6f4";
-        notification-error-bg = "#313244";
-        notification-error-fg = "#f38ba8";
-        notification-warning-bg = "#313244";
-        notification-warning-fg = "#fab387";
-        highlight-color = "#f9e2af";
-        highlight-active-color = "#89b4fa";
-        completion-bg = "#313244";
-        completion-fg = "#cdd6f4";
-        completion-highlight-fg = "#cdd6f4";
-        completion-highlight-bg = "#45475a";
-        recolor-lightcolor = "#1e1e2e";
-        recolor-darkcolor = "#cdd6f4";
-        recolor = true;
-        recolor-keephue = true;
-      };
-    };
+    # Zathura PDF viewer - configured in research.nix
     
     # MPV
     mpv = {

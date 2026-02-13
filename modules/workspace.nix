@@ -318,8 +318,8 @@
     dhy = "dhall-to-yaml";
     
     # PureScript
-    ps = "purs";
-    sp = "spago";
+    purs = "purs";
+    spago = "spago";
     spb = "spago build";
     spt = "spago test";
     spr = "spago run";

@@ -25,26 +25,8 @@
   ];
 
   # ============================================================================
-  # WEECHAT CONFIG
+  # WEECHAT CONFIG (via config files - no home-manager module)
   # ============================================================================
-
-  programs.weechat = {
-    enable = true;
-    init = ''
-      # Catppuccin Mocha colors
-      /set weechat.bar.status.color_bg 30
-      /set weechat.bar.title.color_bg 30
-      /set weechat.color.chat_nick_colors 1,2,3,4,5,6,9,10,11,12,13
-      
-      # UI
-      /set weechat.look.buffer_time_format "%H:%M"
-      /set weechat.look.prefix_suffix "│"
-      /set weechat.look.read_marker_string "─"
-      
-      # Encryption
-      /secure passphrase
-    '';
-  };
 
   # Weechat config
   xdg.configFile."weechat/weechat.conf".text = ''
@@ -100,7 +82,7 @@
     highlight_disable_regex = off
     highlight_regex = ""
     highlight_tags = ""
-    hotlist_add_conditions = "${away} || ${buffer.num_displayed} == 0"
+    hotlist_add_conditions = "''${away} || ''${buffer.num_displayed} == 0"
     hotlist_buffer_separator = ", "
     hotlist_count_max = 2
     hotlist_count_min_msg = 2

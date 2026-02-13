@@ -214,9 +214,9 @@
         return Array.from({ length: 10 }, (_, i) => i + 1).map(id =>
           Button({
             className: activeWorkspace.bind().transform(active =>
-              `workspace ${active === id ? 'active' : ''} ${occupied.includes(id) ? 'occupied' : ''}`
+              `workspace ''${active === id ? 'active' : ''''}  ''${occupied.includes(id) ? 'occupied' : ''''}`
             ),
-            onClicked: () => execAsync(`hyprctl dispatch workspace ${id}`),
+            onClicked: () => execAsync(`hyprctl dispatch workspace ''${id}`),
             child: Label({ label: String(id) }),
           })
         );
@@ -253,9 +253,9 @@
         }),
         Label({
           className: battery.bind().transform(b => 
-            `battery ${(b.percent || 100) < 20 ? 'low' : ''}`
+            `battery ''${(b.percent || 100) < 20 ? 'low' : ''''}`
           ),
-          label: battery.bind().transform(b => `${b.percent || 100}%`),
+          label: battery.bind().transform(b => `''${b.percent || 100}%`),
         }),
       ],
     });
@@ -273,7 +273,7 @@
         }),
         Label({
           className: "volume",
-          label: volume.bind().transform(v => `${v}%`),
+          label: volume.bind().transform(v => `''${v}%`),
         }),
       ],
     });
@@ -317,7 +317,7 @@
     });
 
     const Bar = (monitor = 0) => Window({
-      name: `bar-${monitor}`,
+      name: `bar-''${monitor}`,
       monitor,
       anchor: ["top", "left", "right"],
       exclusivity: "exclusive",
@@ -550,6 +550,7 @@
   programs.bash.shellAliases = {
     ags-start = "ags-start";
     ags-reload = "ags quit && ags &";
-    wall = "wallpaper-set";
+    # wall alias in hyprland-extras.nix
+    ags-wall = "wallpaper-set";
   };
 }

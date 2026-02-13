@@ -23,7 +23,7 @@
     gamescope                # Micro-compositor for games
     mangohud                 # FPS overlay
     goverlay                 # MangoHud GUI config
-    vkBasalt                 # Vulkan post-processing
+    vkbasalt                 # Vulkan post-processing
     
     # === CONTROLLERS ===
     antimicrox               # Map controller to keyboard
@@ -34,8 +34,9 @@
     dolphin-emu              # GameCube/Wii
     pcsx2                    # PlayStation 2
     rpcs3                    # PlayStation 3
-    yuzu-mainline            # Nintendo Switch
-    ryujinx                  # Nintendo Switch (alt)
+    # yuzu was removed from nixpkgs (legal issues)
+    ryubing                  # Nintendo Switch (Ryujinx fork)
+    cemu                     # Wii U
     
     # === UTILITIES ===
     steamtinkerlaunch        # Steam launch helper
@@ -50,7 +51,7 @@
     
     # === MISC ===
     vulkan-tools             # Vulkan utilities
-    glxinfo                  # OpenGL info
+    mesa-demos               # OpenGL info (glxinfo, etc)
   ];
 
   # ============================================================================

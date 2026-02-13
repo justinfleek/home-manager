@@ -359,7 +359,8 @@
   # ============================================================================
 
   programs.bash.shellAliases = {
-    ff = "firefox";
+    # ff alias defined in shell.nix as fastfetch
+    fox = "firefox";
     brave = "brave";
     viv = "vivaldi";
     qb = "qutebrowser";

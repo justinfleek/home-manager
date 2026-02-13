@@ -13,7 +13,7 @@
     # Text-to-Speech
     espeak-ng            # Open source TTS
     piper-tts            # Fast neural TTS
-    festival             # Speech synthesis
+    mimic                # Festival-based TTS (mycroft)
     
     # Audio processing
     sox                  # Sound processing
@@ -324,7 +324,7 @@
       TMPFILE=$(mktemp --suffix=.wav)
       
       # Record until Ctrl+C
-      trap "echo ''; echo 'Processing...'" INT
+      trap "echo; echo 'Processing...'" INT
       ffmpeg -f pulse -i default -ar 16000 -ac 1 "$TMPFILE" 2>/dev/null
       
       # Transcribe

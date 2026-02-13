@@ -13,6 +13,9 @@
       name = "default";
       isDefault = true;
       
+      # Required for catppuccin extensions
+      extensions.force = true;
+      
       # Search engines
       search = {
         force = true;

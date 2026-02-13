@@ -9,7 +9,7 @@
     # CUDA toolkit
     cudaPackages.cudatoolkit
     cudaPackages.cudnn
-    cudaPackages.cutensor
+    cudaPackages.libcutensor
     cudaPackages.nccl
     
     # GPU monitoring
@@ -366,7 +366,7 @@
     gpustat = "gpustat";
     
     # NVIDIA
-    nv = "nvidia-smi";
+    nvsmi = "nvidia-smi";
     nvw = "watch -n 1 nvidia-smi";
     nvp = "gpu-processes";
     

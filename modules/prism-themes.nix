@@ -181,9 +181,9 @@
     enable = true;
     package = pkgs.vscodium; # or pkgs.vscode
     
-    userSettings = {
-      # Theme
-      "workbench.colorTheme" = "PRISM - Nord Aurora";
+    profiles.default.userSettings = {
+      # Theme (use mkForce to override catppuccin)
+      "workbench.colorTheme" = lib.mkForce "PRISM - Nord Aurora";
       
       # Font
       "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'Fira Code', monospace";
@@ -210,7 +210,7 @@
       "files.insertFinalNewline" = true;
     };
     
-    extensions = with pkgs.vscode-extensions; [
+    profiles.default.extensions = with pkgs.vscode-extensions; [
       # Basics
       vscodevim.vim
       eamodio.gitlens
@@ -262,7 +262,7 @@
   # Emacs package
   programs.emacs = {
     enable = true;
-    package = pkgs.emacs29-pgtk; # Wayland native
+    package = pkgs.emacs-pgtk; # Wayland native (Emacs 30)
     
     extraPackages = epkgs: with epkgs; [
       # Core
@@ -291,7 +291,7 @@
       haskell-mode
       purescript-mode
       dhall-mode
-      lean4-mode
+      # lean4-mode - install via MELPA or use-package
       
       # UI
       doom-themes

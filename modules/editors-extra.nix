@@ -18,7 +18,7 @@
     defaultEditor = false; # Neovim is default
     
     settings = {
-      theme = "catppuccin_mocha";
+      # theme handled by catppuccin module
       
       editor = {
         # Line numbers
@@ -108,7 +108,7 @@
           git-ignore = true;
           git-global = true;
           git-exclude = true;
-          max-depth = null;
+          # max-depth - no limit by default
         };
         
         # LSP

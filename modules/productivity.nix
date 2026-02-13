@@ -20,7 +20,7 @@
     sioyek                   # PDF viewer (research)
     evince                   # PDF viewer (simple)
     libreoffice              # Office suite
-    onlyoffice-bin           # Office suite (MS compat)
+    onlyoffice-desktopeditors           # Office suite (MS compat)
     
     # === DIAGRAMS ===
     drawio                   # Diagram editor
@@ -34,7 +34,7 @@
     gnome-calendar           # GUI calendar
     
     # === PASSWORDS ===
-    bitwarden                # Password manager
+    bitwarden-desktop        # Password manager
     bitwarden-cli            # CLI
     
     # === CLIPBOARD ===

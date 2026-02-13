@@ -44,7 +44,7 @@
     
     # === SCREEN SHARING ===
     xdg-desktop-portal-hyprland
-    xwaylandvideobridge      # For Discord screen share
+    # xwaylandvideobridge removed - use pipewire screenshare
   ];
 
   # ============================================================================
@@ -325,9 +325,9 @@
     vwall = "video-wallpaper";
     
     # Recording
-    rec = "record-screen area";
-    recf = "record-screen screen";
-    recs = "record-screen stop";
+    record = "record-screen area";
+    recordf = "record-screen screen";
+    records = "record-screen stop";
     
     # Color
     pick = "hyprpicker -a";

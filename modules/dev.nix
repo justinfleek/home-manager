@@ -66,8 +66,8 @@
     postgresql
     sqlite
     redis
-    mysql
-    dbeaver
+    mariadb                  # MySQL-compatible
+    dbeaver-bin              # GUI database tool
     
     # Database CLIs
     pgcli
@@ -102,7 +102,7 @@
     
     # === BUILD TOOLS ===
     just                     # Task runner
-    task                     # Task runner (Taskfile)
+    go-task                  # Task runner (Taskfile)
     meson
     
     # === VERSION CONTROL ===
@@ -126,7 +126,7 @@
     doctl                    # DigitalOcean
     flyctl                   # Fly.io
     netlify-cli
-    vercel
+    nodePackages.vercel
     
     # === MISC ===
     watchexec                # File watcher

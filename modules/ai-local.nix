@@ -391,8 +391,8 @@
     webui = "openwebui-start";
     webui-stop = "openwebui-stop";
     
-    # ComfyUI
-    comfy = "comfyui-start";
+    # ComfyUI (alias defined in comfyui.nix)
+    comfy-basic = "comfyui-start";
     comfy-install = "comfyui-install";
     
     # Jupyter

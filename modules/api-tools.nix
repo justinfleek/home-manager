@@ -22,7 +22,7 @@
     websocat               # WebSocket CLI client
     
     # GraphQL
-    gq                     # GraphQL CLI
+    graphqurl              # CLI for making GraphQL queries
     
     # JSON tools
     jq                     # JSON processor
@@ -250,7 +250,7 @@
     
     # Tools
     api = "posting";
-    ws = "websocat";
+    wsc = "websocat";
     jwt = "jwt-decode";
     
     # Testing

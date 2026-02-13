@@ -204,7 +204,7 @@
               ];
             };
           in {
-            packages.${system}.default = pkgs.comfyuiPackages.comfyui.override {
+            packages.''${system}.default = pkgs.comfyuiPackages.comfyui.override {
               withCustomNodes = with pkgs.comfyuiCustomNodes; [
                 comfyui-impact-pack
                 comfyui-kjnodes
@@ -219,8 +219,8 @@
               ];
             };
             
-            devShells.${system}.default = pkgs.mkShell {
-              packages = [ self.packages.${system}.default ];
+            devShells.''${system}.default = pkgs.mkShell {
+              packages = [ self.packages.''${system}.default ];
               
               shellHook = '''
                 echo "ComfyUI ready!"

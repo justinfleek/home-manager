@@ -84,17 +84,17 @@
             (label :class "stat-icon" :text "󰍛")
             (label :class "stat-label" :text "CPU")
             (progress :class "stat-bar" :value cpu :orientation "h")
-            (label :class "stat-value" :text "${cpu}%"))
+            (label :class "stat-value" :text "''${cpu}%"))
           (box :class "stat" :orientation "h" :space-evenly false
             (label :class "stat-icon" :text "󰘚")
             (label :class "stat-label" :text "RAM")
             (progress :class "stat-bar" :value memory :orientation "h")
-            (label :class "stat-value" :text "${memory}%"))
+            (label :class "stat-value" :text "''${memory}%"))
           (box :class "stat" :orientation "h" :space-evenly false
             (label :class "stat-icon" :text "󰋊")
             (label :class "stat-label" :text "DISK")
             (progress :class "stat-bar" :value disk :orientation "h")
-            (label :class "stat-value" :text "${disk}%"))))
+            (label :class "stat-value" :text "''${disk}%"))))
       
       ; Battery widget
       (defwidget battery []
@@ -110,7 +110,7 @@
                    battery < 70 ? "󰁿" :
                    battery < 80 ? "󰂀" :
                    battery < 90 ? "󰂁" : "󰂂"})
-          (label :class "battery-value" :text "${battery}%")))
+          (label :class "battery-value" :text "''${battery}%")))
       
       ; Volume widget
       (defwidget volume []

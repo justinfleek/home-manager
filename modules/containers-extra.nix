@@ -10,7 +10,7 @@
     lazydocker             # Docker TUI
     dive                   # Docker image explorer
     ctop                   # Container top
-    dockly                 # Docker console UI
+    oxker                  # Simple Docker TUI in Rust
     
     # Kubernetes TUIs
     k9s                    # Kubernetes TUI
@@ -412,12 +412,8 @@
     dclean = "docker-clean";
     dnuke = "docker-nuke";
     
-    # Docker Compose
-    dc = "docker compose";
-    dcu = "docker compose up -d";
-    dcd = "docker compose down";
-    dcl = "docker compose logs -f";
-    dcr = "docker compose restart";
+    # Docker Compose aliases in containers.nix
+    dcr = "docker compose restart";  # Additional
     
     # Kubernetes
     k = "kubectl";

@@ -60,10 +60,7 @@
     # Opencode
     opencode.url = "github:anomalyco/opencode";
     
-    # Lean 4
-    lean4 = {
-      url = "github:leanprover/lean4";
-    };
+    # Note: Lean 4 is available in nixpkgs directly as pkgs.lean4
     
     # PureScript overlay
     purescript-overlay = {
@@ -83,7 +80,7 @@
           inputs.purescript-overlay.overlays.default
           (final: prev: {
             ghostty = inputs.ghostty.packages.${system}.default;
-            lean4 = inputs.lean4.packages.${system}.default;
+            # lean4 is already in nixpkgs
           })
         ];
       };
@@ -100,7 +97,7 @@
         };
         
         modules = [
-          catppuccin.homeManagerModules.catppuccin
+          catppuccin.homeModules.catppuccin
           
           # Core
           ./home.nix
@@ -179,6 +176,12 @@
           # NVIDIA/GPU
           ./modules/nvidia.nix
           
+          # Web Development (full stack)
+          ./modules/webdev.nix
+          
+          # Security Hardening (white hat mode)
+          ./modules/security.nix
+          
           # Alternative WMs (optional - uncomment to use)
           # ./modules/sway.nix
           # ./modules/niri.nix
@@ -187,10 +190,10 @@
       
       # Dev shell for working on this config
       devShells.${system}.default = pkgs.mkShell {
-        packages = with pkgs; [
-          home-manager
-          nil
-          nixfmt-rfc-style
+        packages = [
+          inputs.home-manager.packages.${system}.home-manager
+          pkgs.nil
+          pkgs.nixfmt-rfc-style
         ];
       };
     };

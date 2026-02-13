@@ -8,7 +8,7 @@
   home.packages = with pkgs; [
     # === AUDIO ===
     mpd                      # Music Player Daemon
-    mpc-cli                  # MPD CLI
+    mpc                  # MPD CLI
     ncmpcpp                  # MPD TUI client
     cava                     # Audio visualizer
     playerctl                # Media control
