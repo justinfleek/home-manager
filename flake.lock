@@ -1270,8 +1270,8 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1771028958,
-        "narHash": "sha256-gr4orsgO7jdr/lmjED7Ep6OERw8gnY9KKQ0mhIgSX1w=",
+        "lastModified": 1771030134,
+        "narHash": "sha256-dpzyQfkKefJ1Ckw2my2GVY22WFml0ej46/ujdYMDmQ4=",
         "path": "/home/justin/omega-agentic/opencode",
         "type": "path"
       },

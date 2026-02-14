@@ -87,7 +87,10 @@
         inherit system;
         config.allowUnfree = true;
         overlays = [
-          inputs.opencode.overlays.default
+          # Use opencode package directly, not via overlay (avoids Bun hash mismatch)
+          (final: prev: {
+            opencode = inputs.opencode.packages.${system}.default;
+          })
           inputs.purescript-overlay.overlays.default
           (final: prev: {
             ghostty = inputs.ghostty.packages.${system}.default;
