@@ -134,7 +134,7 @@
           # Extended
           # ./modules/spicetify.nix  # Temporarily disabled - network fetch issue
           ./modules/gaming.nix
-          ./modules/containers.nix
+          # ./modules/containers.nix
           ./modules/music.nix
           ./modules/email.nix
           ./modules/chat.nix
@@ -175,7 +175,7 @@
           ./modules/api-tools.nix
 
           # Containers extra
-          ./modules/containers-extra.nix
+          # ./modules/containers-extra.nix
 
           # Unified Python environment (must come before AI modules)
           ./modules/python.nix
@@ -209,6 +209,32 @@
           # ./modules/niri.nix
         ];
       };
+
+  homeConfigurations."nixos-wsl" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = {
+            inherit pkgs-bun;
+            inherit inputs nix-colors;
+            username = "nixos";
+          };
+          modules = [
+            catppuccin.homeModules.catppuccin
+            ./home-wsl.nix
+            ./modules/ghostty.nix
+            ./modules/neovim.nix
+            ./modules/shell.nix
+            ./modules/tmux.nix
+            ./modules/git.nix
+            ./modules/tools.nix
+            ./modules/dev.nix
+            ./modules/terminals.nix
+            ./modules/nushell.nix
+            ./modules/editors-extra.nix
+            ./modules/api-tools.nix
+            ./modules/ai-coding.nix
+            ./modules/webdev.nix
+          ];
+        };
 
       # Dev shell for working on this config
       devShells.${system}.default = pkgs.mkShell {
