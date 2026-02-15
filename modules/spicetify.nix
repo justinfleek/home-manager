@@ -19,9 +19,9 @@
   programs.spicetify = {
     enable = true;
 
-    # Catppuccin Mocha theme
-    theme = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system}.themes.catppuccin;
-    colorScheme = "mocha";
+    # Default theme
+    theme = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system}.themes.default;
+    colorScheme = "default";
 
     # Extensions
     enabledExtensions =

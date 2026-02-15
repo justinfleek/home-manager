@@ -23,7 +23,7 @@
     onlyoffice-desktopeditors           # Office suite (MS compat)
     
     # === DIAGRAMS ===
-    drawio                   # Diagram editor
+#    drawio                   # Diagram editor
     
     # === PRESENTATIONS ===
     slides                   # Terminal presentations
@@ -239,7 +239,7 @@
       color = "#6c7086";
     };
     code = {
-      theme = "catppuccin-mocha";
+      theme = "default";
     };
     headings = {
       h1 = {

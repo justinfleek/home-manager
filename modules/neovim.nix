@@ -119,7 +119,7 @@
           lazy = false,
           version = false,
         },
-        install = { colorscheme = { "catppuccin", "habamax" } },
+        install = { colorscheme = { "prism", "habamax" } },
         checker = { enabled = true },
         performance = {
           rtp = {
@@ -359,74 +359,12 @@
     "nvim/lua/plugins/colorscheme.lua".text = ''
       return {
         -- Catppuccin colorscheme
-        {
-          "catppuccin/nvim",
-          name = "catppuccin",
-          lazy = false,
-          priority = 1000,
-          opts = {
-            flavour = "mocha",
-            background = {
-              light = "latte",
-              dark = "mocha",
-            },
-            transparent_background = true,
-            show_end_of_buffer = false,
-            term_colors = true,
-            dim_inactive = {
-              enabled = false,
-            },
-            styles = {
-              comments = { "italic" },
-              conditionals = { "italic" },
-              loops = {},
-              functions = { "bold" },
-              keywords = { "italic" },
-              strings = {},
-              variables = {},
-              numbers = {},
-              booleans = { "bold" },
-              properties = {},
-              types = { "bold" },
-              operators = {},
-            },
-            integrations = {
-              alpha = true,
-              cmp = true,
-              flash = true,
-              gitsigns = true,
-              illuminate = true,
-              indent_blankline = { enabled = true },
-              lsp_trouble = true,
-              mason = true,
-              mini = true,
-              native_lsp = {
-                enabled = true,
-                underlines = {
-                  errors = { "undercurl" },
-                  hints = { "undercurl" },
-                  warnings = { "undercurl" },
-                  information = { "undercurl" },
-                },
-              },
-              navic = { enabled = true, custom_bg = "lualine" },
-              neotest = true,
-              noice = true,
-              notify = true,
-              nvimtree = true,
-              semantic_tokens = true,
-              telescope = true,
-              treesitter = true,
-              which_key = true,
-            },
-          },
-        },
 
         -- Set colorscheme
         {
           "LazyVim/LazyVim",
           opts = {
-            colorscheme = "catppuccin",
+            colorscheme = "prism",
           },
         },
       }
@@ -486,7 +424,7 @@
             "nvim-lualine/lualine.nvim",
             opts = function(_, opts)
               opts.options = {
-                theme = "catppuccin",
+                theme = "auto",
                 globalstatus = true,
                 component_separators = { left = "", right = "" },
                 section_separators = { left = "", right = "" },

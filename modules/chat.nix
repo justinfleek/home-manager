@@ -204,22 +204,6 @@
   '';
 
   # ============================================================================
-  # VESKTOP (Discord with Vencord) CONFIG
-  # ============================================================================
-
-  # Vesktop has Vencord built-in, so we just need to create the css file
-  xdg.configFile."vesktop/themes/catppuccin-mocha.theme.css".text = ''
-    /**
-     * @name Catppuccin Mocha
-     * @author catppuccin
-     * @version 1.0.0
-     * @description Catppuccin Mocha theme for Discord
-     */
-
-    @import url('https://catppuccin.github.io/discord/dist/catppuccin-mocha.theme.css');
-  '';
-
-  # ============================================================================
   # SHELL ALIASES
   # ============================================================================
 

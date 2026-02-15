@@ -52,9 +52,8 @@
     # === BUILD TOOLS ===
     just
     watchexec
+    opencode
 
-    # === OPENCODE ===
-    opencode # Now works with bun 1.3.9+ from pkgs-bun
   ];
 
   # ============================================================================

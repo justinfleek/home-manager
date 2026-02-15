@@ -89,7 +89,7 @@
 
   xdg.configFile."hyprpanel/config.json".text = builtins.toJSON {
     theme = {
-      name = "catppuccin-mocha";
+      name = "default";
       bar = {
         background = "rgba(30, 30, 46, 0.85)";
         border = "rgba(137, 180, 250, 0.3)";

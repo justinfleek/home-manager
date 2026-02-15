@@ -18,7 +18,6 @@
     defaultEditor = false; # Neovim is default
     
     settings = {
-      # theme handled by catppuccin module
       
       editor = {
         # Line numbers

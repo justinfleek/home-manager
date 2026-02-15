@@ -18,7 +18,7 @@
     enableBashIntegration = false; # Don't auto-attach, use manually
     
     settings = {
-      theme = "catppuccin-mocha";
+      theme = "default";
       default_layout = "compact";
       default_mode = "normal";
       pane_frames = false;

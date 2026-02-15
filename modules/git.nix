@@ -37,40 +37,6 @@
         dark = true;
         line-numbers = true;
         side-by-side = false;
-        features = "catppuccin-mocha";
-      };
-
-      # Catppuccin Mocha theme for delta
-      "delta \"catppuccin-mocha\"" = {
-        blame-palette = "#1e1e2e #181825 #11111b #313244 #45475a";
-        commit-decoration-style = "box ul #cba6f7";
-        dark = true;
-        file-decoration-style = "#cdd6f4";
-        file-style = "#cdd6f4";
-        hunk-header-decoration-style = "box ul #45475a";
-        hunk-header-file-style = "bold";
-        hunk-header-line-number-style = "bold #a6adc8";
-        hunk-header-style = "file line-number syntax";
-        line-numbers = true;
-        line-numbers-left-style = "#6c7086";
-        line-numbers-minus-style = "bold #f38ba8";
-        line-numbers-plus-style = "bold #a6e3a1";
-        line-numbers-right-style = "#6c7086";
-        line-numbers-zero-style = "#6c7086";
-        minus-emph-style = "bold syntax #53394c";
-        minus-non-emph-style = "syntax auto";
-        minus-style = "syntax #34293a";
-        plus-emph-style = "bold syntax #404f4a";
-        plus-non-emph-style = "syntax auto";
-        plus-style = "syntax #2c3d39";
-        map-styles = ''
-          bold purple => syntax "#494060",
-          bold blue => syntax "#394361",
-          bold cyan => syntax "#384d52",
-          bold yellow => syntax "#544f4e"
-        '';
-        syntax-theme = "Catppuccin Mocha";
-        zero-style = "syntax";
       };
 
       merge = {

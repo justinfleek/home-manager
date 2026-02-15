@@ -130,7 +130,7 @@
         reactive: true
         noIcons: false
         defaultsToFullScreen: false
-        skin: catppuccin-mocha
+        skin: default
       skipLatestRevCheck: false
       disablePodCounting: false
       shellPod:
@@ -155,96 +155,6 @@
         memory:
           critical: 90
           warn: 70
-  '';
-
-  # K9s Catppuccin skin
-  xdg.configFile."k9s/skins/catppuccin-mocha.yml".text = ''
-    # K9s Catppuccin Mocha skin
-    k9s:
-      body:
-        fgColor: "#cdd6f4"
-        bgColor: "#1e1e2e"
-        logoColor: "#89b4fa"
-      prompt:
-        fgColor: "#cdd6f4"
-        bgColor: "#1e1e2e"
-        suggestColor: "#89b4fa"
-      info:
-        fgColor: "#89b4fa"
-        sectionColor: "#cdd6f4"
-      dialog:
-        fgColor: "#cdd6f4"
-        bgColor: "#1e1e2e"
-        buttonFgColor: "#1e1e2e"
-        buttonBgColor: "#89b4fa"
-        buttonFocusFgColor: "#1e1e2e"
-        buttonFocusBgColor: "#a6e3a1"
-        labelFgColor: "#f9e2af"
-        fieldFgColor: "#cdd6f4"
-      frame:
-        border:
-          fgColor: "#45475a"
-          focusColor: "#89b4fa"
-        menu:
-          fgColor: "#cdd6f4"
-          keyColor: "#89b4fa"
-          numKeyColor: "#f9e2af"
-        crumbs:
-          fgColor: "#1e1e2e"
-          bgColor: "#89b4fa"
-          activeColor: "#f5c2e7"
-        status:
-          newColor: "#94e2d5"
-          modifyColor: "#89b4fa"
-          addColor: "#a6e3a1"
-          pendingColor: "#f9e2af"
-          errorColor: "#f38ba8"
-          highlightColor: "#f5c2e7"
-          killColor: "#f5c2e7"
-          completedColor: "#6c7086"
-        title:
-          fgColor: "#cdd6f4"
-          bgColor: "#1e1e2e"
-          highlightColor: "#f5c2e7"
-          counterColor: "#89b4fa"
-          filterColor: "#a6e3a1"
-      views:
-        charts:
-          bgColor: "#1e1e2e"
-          dialBgColor: "#1e1e2e"
-          chartBgColor: "#1e1e2e"
-          defaultDialColors:
-            - "#89b4fa"
-            - "#f38ba8"
-          defaultChartColors:
-            - "#89b4fa"
-            - "#f38ba8"
-        table:
-          fgColor: "#cdd6f4"
-          bgColor: "#1e1e2e"
-          cursorFgColor: "#1e1e2e"
-          cursorBgColor: "#45475a"
-          markColor: "#f9e2af"
-          header:
-            fgColor: "#cdd6f4"
-            bgColor: "#1e1e2e"
-            sorterColor: "#94e2d5"
-        xray:
-          fgColor: "#cdd6f4"
-          bgColor: "#1e1e2e"
-          cursorColor: "#45475a"
-          cursorTextColor: "#1e1e2e"
-          graphicColor: "#89b4fa"
-        yaml:
-          keyColor: "#89b4fa"
-          colonColor: "#45475a"
-          valueColor: "#cdd6f4"
-        logs:
-          fgColor: "#cdd6f4"
-          bgColor: "#1e1e2e"
-          indicator:
-            fgColor: "#cdd6f4"
-            bgColor: "#1e1e2e"
   '';
 
   # ============================================================================

@@ -7,7 +7,7 @@
 
 {
   # ============================================================================
-  # DUNST - Notification daemon with catppuccin styling
+  # DUNST - Notification daemon with minimal styling
   # ============================================================================
 
   services.dunst = {
@@ -15,7 +15,7 @@
 
     iconTheme = {
       name = "Papirus-Dark";
-      package = pkgs.catppuccin-papirus-folders;
+      package = pkgs.papirus-icon-theme;
       size = "32x32";
     };
 

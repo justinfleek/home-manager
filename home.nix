@@ -37,12 +37,8 @@
       GDK_BACKEND = "wayland,x11";
 
       # Theming
-      GTK_THEME = "catppuccin-mocha-mauve-standard";
-      QT_STYLE_OVERRIDE = "kvantum";
 
-      # FZF catppuccin colors (use mkForce to override catppuccin module)
       FZF_DEFAULT_OPTS = lib.mkForce ''
-        --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8
         --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc
         --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8
         --border="rounded" --border-label="" --preview-window="border-rounded"
@@ -63,11 +59,6 @@
   # CATPPUCCIN GLOBAL THEMING
   # ============================================================================
 
-  catppuccin = {
-    enable = true;
-    flavor = "mocha";
-    accent = "mauve";
-  };
 
   # ============================================================================
   # PACKAGES
@@ -164,10 +155,6 @@
     lexend
 
     # === GTK/QT THEMING ===
-    catppuccin-gtk
-    catppuccin-kvantum
-    catppuccin-cursors
-    # papirus-icon-theme - conflicts with catppuccin-papirus-folders from catppuccin module
 
     # === MISC ===
     obs-studio
@@ -236,17 +223,7 @@
   gtk = {
     enable = true;
     theme = {
-      name = "catppuccin-mocha-mauve-standard";
-      package = pkgs.catppuccin-gtk.override {
-        accents = [ "mauve" ];
-        variant = "mocha";
-      };
-    };
-    # iconTheme handled by catppuccin module
-    cursorTheme = {
-      name = "catppuccin-mocha-mauve-cursors";
-      package = pkgs.catppuccin-cursors.mochaMauve;
-      size = 24;
+      name = "Adwaita-dark";
     };
     font = {
       name = "Inter";
@@ -269,7 +246,6 @@
     platformTheme.name = "kvantum";
     style = {
       name = "kvantum";
-      package = pkgs.catppuccin-kvantum;
     };
   };
 
@@ -278,9 +254,8 @@
   # ============================================================================
 
   home.pointerCursor = {
-    name = "catppuccin-mocha-mauve-cursors";
-    package = pkgs.catppuccin-cursors.mochaMauve;
-    size = 24;
+    name = "Adwaita";
+    package = pkgs.adwaita-icon-theme;
     gtk.enable = true;
     x11.enable = true;
   };
@@ -358,11 +333,9 @@
       changeDirWidgetCommand = "fd --type d --hidden --follow --exclude .git";
     };
 
-    # Btop (theme handled by catppuccin module)
     btop = {
       enable = true;
       settings = {
-        # color_theme handled by catppuccin
         theme_background = false;
         vim_keys = true;
         rounded_corners = true;

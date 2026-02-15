@@ -41,7 +41,6 @@
     };
 
     # Catppuccin theming
-    catppuccin.url = "github:catppuccin/nix";
 
     # Nix colors for unified theming
     nix-colors.url = "github:misterio77/nix-colors";
@@ -58,8 +57,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    opencode.url = "path:/home/justin/workspace/opencode";
     # Opencode (local build - straylight-software fork synced locally)
-    opencode.url = "path:/home/justin/omega-agentic/opencode";
 
     # Note: Lean 4 is available in nixpkgs directly as pkgs.lean4
 
@@ -76,7 +75,6 @@
       nixpkgs,
       nixpkgs-bun,
       home-manager,
-      catppuccin,
       nix-colors,
       ...
     }@inputs:
@@ -87,11 +85,8 @@
         inherit system;
         config.allowUnfree = true;
         overlays = [
-          # Use opencode package directly, not via overlay (avoids Bun hash mismatch)
-          (final: prev: {
-            opencode = inputs.opencode.packages.${system}.default;
-          })
           inputs.purescript-overlay.overlays.default
+          inputs.opencode.overlays.default
           (final: prev: {
             ghostty = inputs.ghostty.packages.${system}.default;
             # lean4 is already in nixpkgs
@@ -113,7 +108,6 @@
         };
 
         modules = [
-          catppuccin.homeModules.catppuccin
 
           # Core
           ./home.nix
@@ -143,7 +137,6 @@
 
           # Workspace
           ./modules/workspace.nix
-          ./modules/opencode-workspace.nix
 
           # Themes (PRISM + Cursor + hypermodern-emacs)
           ./modules/prism-themes.nix
@@ -218,7 +211,6 @@
             username = "nixos";
           };
           modules = [
-            catppuccin.homeModules.catppuccin
             ./home-wsl.nix
             ./modules/ghostty.nix
             ./modules/neovim.nix

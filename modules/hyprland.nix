@@ -58,7 +58,7 @@
         "hypridle"
 
         # Cursor
-        "hyprctl setcursor catppuccin-mocha-mauve-cursors 24"
+        "hyprctl setcursor Adwaita 24"
 
         # Dock (macOS-style)
         "nwg-dock-hyprland -d -i 48 -p 'bottom' -mb 10 -ml 10 -mr 10"
@@ -69,9 +69,9 @@
       # ========================================================================
       env = [
         "XCURSOR_SIZE,24"
-        "XCURSOR_THEME,catppuccin-mocha-mauve-cursors"
+        "XCURSOR_THEME,Adwaita"
         "HYPRCURSOR_SIZE,24"
-        "HYPRCURSOR_THEME,catppuccin-mocha-mauve-cursors"
+        "HYPRCURSOR_THEME,Adwaita"
         "GDK_BACKEND,wayland,x11,*"
         "QT_QPA_PLATFORM,wayland;xcb"
         "SDL_VIDEODRIVER,wayland"

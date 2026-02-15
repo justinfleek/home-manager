@@ -40,7 +40,7 @@
   xdg.configFile."posting/config.yaml".text = ''
     # Posting Configuration
     
-    theme: catppuccin-mocha
+    theme: default
     
     editor:
       command: nvim

@@ -26,7 +26,6 @@
       VISUAL = "nvim";
       TERMINAL = "ghostty";
 
-      # FZF catppuccin colors
       FZF_DEFAULT_OPTS = lib.mkForce ''
         --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8
         --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc
@@ -48,11 +47,6 @@
   # CATPPUCCIN GLOBAL THEMING
   # ============================================================================
 
-  catppuccin = {
-    enable = true;
-    flavor = "mocha";
-    accent = "mauve";
-  };
 
   # ============================================================================
   # PACKAGES — CLI/Dev only, no Wayland/desktop stuff

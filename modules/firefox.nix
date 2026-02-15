@@ -8,7 +8,7 @@
 
 {
   # ============================================================================
-  # FIREFOX - Riced browser with catppuccin theming
+  # FIREFOX - Riced browser with custom theming
   # ============================================================================
 
   programs.firefox = {
@@ -19,7 +19,6 @@
       name = "default";
       isDefault = true;
 
-      # Required for catppuccin extensions
       extensions.force = true;
 
       # Search engines (use lowercase IDs: ddg, google, bing, youtube)

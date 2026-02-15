@@ -56,6 +56,9 @@
     cabal-install
     stack
     haskell-language-server
+    zlib
+    pkg-config
+    # postgresql  # Using postgresql_16 from webdev.nix
 
     # Elixir
     elixir
@@ -324,13 +327,6 @@
       git commit -m "Initial commit"
       
       echo "Project '$name' created with $lang template"
-    }
-
-    # Quick HTTP server
-    serve() {
-      local port="''${1:-8000}"
-      echo "Serving on http://localhost:$port"
-      python3 -m http.server "$port"
     }
 
     # Run command on file change

@@ -50,7 +50,7 @@
     completion-min-chars=1
     border-char-vertical=│
     border-char-horizontal=─
-    styleset-name=catppuccin
+    styleset-name=default
 
     [statusline]
     render-format = [%a] %S %>%T
@@ -79,57 +79,6 @@
     message/rfc822=colorize
     application/pdf=zathura -
     image/*=imv -
-  '';
-
-  # Aerc Catppuccin style
-  xdg.configFile."aerc/stylesets/catppuccin".text = ''
-    # Catppuccin Mocha for aerc
-
-    *.default=true
-    *.selected.reverse=toggle
-
-    title.fg=#cba6f7
-    title.bg=#313244
-    title.bold=true
-
-    header.fg=#89b4fa
-    header.bold=true
-
-    *error.fg=#f38ba8
-    *error.bold=true
-    *warning.fg=#fab387
-    *success.fg=#a6e3a1
-
-    statusline*.fg=#cdd6f4
-    statusline*.bg=#313244
-
-    msglist_default.fg=#cdd6f4
-    msglist_unread.fg=#89b4fa
-    msglist_unread.bold=true
-    msglist_read.fg=#6c7086
-    msglist_flagged.fg=#f9e2af
-    msglist_deleted.fg=#f38ba8
-    msglist_marked.fg=#cba6f7
-    msglist_marked.reverse=true
-
-    dirlist_default.fg=#cdd6f4
-    dirlist_unread.fg=#89b4fa
-    dirlist_recent.fg=#a6e3a1
-
-    completion_default.fg=#cdd6f4
-    completion_default.bg=#313244
-    completion_gutter.bg=#cba6f7
-    completion_pill.bg=#45475a
-
-    tab.fg=#cdd6f4
-    tab.bg=#313244
-    border.fg=#45475a
-
-    selector_default.fg=#cdd6f4
-    selector_focused.fg=#cba6f7
-    selector_focused.bold=true
-    selector_chooser.fg=#f5c2e7
-    selector_chooser.bold=true
   '';
 
   # ============================================================================
