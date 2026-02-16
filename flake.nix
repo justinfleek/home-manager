@@ -212,19 +212,20 @@
         };
         modules = [
           ./wsl/home.nix
-          ./modules/ghostty.nix
+          # Shared modules (CLI-only, no GUI deps)
           ./modules/neovim.nix
           ./modules/shell.nix
           ./modules/tmux.nix
           ./modules/git.nix
           ./modules/tools.nix
-          ./modules/dev.nix
-          ./modules/terminals.nix
           ./modules/nushell.nix
-          ./modules/editors-extra.nix
           ./modules/api-tools.nix
           ./modules/ai-coding.nix
-          ./modules/webdev.nix
+          # WSL-specific modules (no xorg/GUI deps)
+          ./wsl/modules/dev.nix
+          ./wsl/modules/webdev.nix
+          ./wsl/modules/terminals.nix
+          ./wsl/modules/editors.nix
         ];
       };
 
