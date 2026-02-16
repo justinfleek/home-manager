@@ -57,7 +57,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    opencode.url = "path:/home/justin/workspace/opencode";
+    opencode.url = "path:/home/justin/straylight/opencode";
     # Opencode (local build - straylight-software fork synced locally)
 
     # Note: Lean 4 is available in nixpkgs directly as pkgs.lean4

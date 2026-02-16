@@ -150,7 +150,6 @@
     # DEPLOYMENT & HOSTING
     # ==========================================================================
 
-    nodePackages.vercel
     netlify-cli # Netlify CLI
     # nodePackages.wrangler  # Use standalone wrangler or npx - conflicts with prettier
     flyctl # Fly.io CLI

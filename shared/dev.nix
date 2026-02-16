@@ -132,7 +132,6 @@
     doctl
     flyctl
     netlify-cli
-    nodePackages.vercel
 
     # === MISC ===
     watchexec

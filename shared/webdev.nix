@@ -97,7 +97,6 @@
     # DEPLOYMENT & HOSTING
     # ==========================================================================
 
-    nodePackages.vercel
     netlify-cli
     flyctl
 

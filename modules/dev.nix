@@ -144,7 +144,6 @@
     doctl # DigitalOcean
     flyctl # Fly.io
     netlify-cli
-    nodePackages.vercel
 
     # === MISC ===
     watchexec # File watcher
