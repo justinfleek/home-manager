@@ -56,9 +56,19 @@
     cabal-install
     stack
     haskell-language-server
-    zlib
+
+    # === NATIVE BUILD DEPENDENCIES ===
+    # These provide headers and .pc files for compiling native extensions
+    # (needed by Haskell, Rust, Python packages that link to C libraries)
     pkg-config
-    # postgresql  # Using postgresql_16 from webdev.nix
+    zlib
+    zlib.dev
+    postgresql_16
+    postgresql_16.dev
+    openssl
+    openssl.dev
+    libffi
+    libffi.dev
 
     # Elixir
     elixir
@@ -339,4 +349,18 @@
       hyperfine --warmup 3 "$@"
     }
   '';
+
+  # ============================================================================
+  # NATIVE BUILD ENVIRONMENT
+  # ============================================================================
+
+  # Set PKG_CONFIG_PATH so native builds can find .pc files
+  # This is needed for Haskell, Rust, Python packages that link to C libraries
+  home.sessionVariables = {
+    PKG_CONFIG_PATH = "$HOME/.nix-profile/lib/pkgconfig:$HOME/.nix-profile/share/pkgconfig";
+    # Also ensure library and include paths are set for native compilation
+    LIBRARY_PATH = "$HOME/.nix-profile/lib";
+    C_INCLUDE_PATH = "$HOME/.nix-profile/include";
+    CPLUS_INCLUDE_PATH = "$HOME/.nix-profile/include";
+  };
 }
