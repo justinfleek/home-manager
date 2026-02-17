@@ -213,4 +213,5 @@
       nix-direnv.enable = true;
     };
   };
+  programs.vscode.enable = lib.mkForce false;
 }

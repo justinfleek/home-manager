@@ -138,7 +138,6 @@
           # Workspace
 
           # Themes (PRISM + Cursor + hypermodern-emacs)
-          ./modules/prism-themes.nix
 
           # Extra terminals and shells
           ./modules/terminals.nix
