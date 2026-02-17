@@ -208,7 +208,7 @@
         extraSpecialArgs = {
           inherit pkgs-bun;
           inherit inputs nix-colors;
-          username = "nixos";
+          username = "justin";
         };
         modules = [
           ./wsl/home.nix

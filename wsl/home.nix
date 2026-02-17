@@ -16,8 +16,8 @@
   # ============================================================================
 
   home = {
-    username = "nixos"; # WSL default user
-    homeDirectory = "/home/nixos";
+    username = "justin"; # WSL default user
+    homeDirectory = "/home/justin";
     stateVersion = "24.11";
 
     sessionVariables = {
