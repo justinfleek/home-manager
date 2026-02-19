@@ -1236,8 +1236,8 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1771315481,
-        "narHash": "sha256-5qisSLkS/T3hZw0wMYOwn0qIbWEDD+tG9JXsEuzYGjM=",
+        "lastModified": 1771522926,
+        "narHash": "sha256-mfcGhuzFKbD8348Bg2Pd+wccaFd31DXjqwRSx66dRJ4=",
         "path": "/home/justin/straylight/opencode",
         "type": "path"
       },
