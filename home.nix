@@ -504,25 +504,4 @@
       esac
     '';
   };
-
-  # ============================================================================
-  # AUTO-ACTIVATE HOME-MANAGER ON LOGIN
-  # ============================================================================
-  systemd.user.services.home-manager-auto = {
-    Unit = {
-      Description = "Auto-activate home-manager on login";
-      After = [ "default.target" ];
-    };
-    Service = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.writeShellScript "hm-auto" ''
-        export PATH="/run/current-system/sw/bin:$PATH"
-        ${pkgs.nix}/bin/nix run home-manager/master -- switch --flake /home/justin/.config/jpyxal-dots#justin -b backup 2>&1 | tee /tmp/hm-auto.log
-      ''}";
-      RemainAfterExit = true;
-    };
-    Install = {
-      WantedBy = [ "default.target" ];
-    };
-  };
 }
