@@ -463,6 +463,8 @@
   programs.yazi = {
     enable = true;
     enableBashIntegration = true;
+    shellWrapperName = "y";
+    shellWrapperName = "y";
     
     settings = {
       manager = {

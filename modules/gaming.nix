@@ -13,7 +13,7 @@
     bottles                  # Wine prefix manager
     
     # === WINE & PROTON ===
-    wineWowPackages.staging  # Wine with staging patches
+    wineWow64Packages.staging  # Wine with staging patches
     winetricks               # Wine helper scripts
     protontricks             # Proton helper scripts
     protonup-qt              # Proton-GE installer
